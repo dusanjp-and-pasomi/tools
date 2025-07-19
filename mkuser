@@ -1,0 +1,120 @@
+#!/bin/bash
+
+#あたらしいユーザを作成
+echo 
+echo "ノードの操作に使う、あたらしいユーザを作成します。作成するユーザー名を入力して下さい。"
+read username
+
+#sshdポートの変更
+echo 
+echo "サーバにログインする際の sshdポートをデフォルトの 22から変更します。変更したい sshdポートを入力して下さい。"
+read sshd
+
+#サーバのIPアドレスの取得
+ip=$(curl -4 ifconfig.me)
+echo 
+echo "このサーバのIPは "$ip" です。このサーバにログインする際は、このIPを使用して下さい。"
+
+#次回以降にログインする際のログイン方法の表示
+echo "このサーバは、次回からのログインは、rootとしてのログインは出来なくなります。"
+echo "次回からこのサーバにログインする為には以下の命令を実行して下さい"
+echo "ssh -p "$sshd" "$username"@"$ip
+
+
+#あたらしいユーザの設定
+echo 
+echo "あたらしいユーザ '"$username"' の登録をします。"
+echo "パスワードを入力し、[ENTER]、再度確認の為にパスワードを再度入力し、[ENTER]、"
+echo "その後、[ENTER]を6回入力して下さい。"
+adduser $username
+gpasswd -a $username sudo
+
+#sshdポートの変更
+echo 
+echo "sshdポートを 22 から "$sshd" へ変更しています。"
+sed -i -e s/"#Port .*"/"Port 22"/ /etc/ssh/sshd_config
+sed -i -e s/"Port .*"/"Port $sshd"/ /etc/ssh/sshd_config
+sed -i -e s/"PermitRootLogin .*"/"PermitRootLogin no"/ /etc/ssh/sshd_config
+systemctl restart sshd
+
+#sshdポートの変更_ubuntu24.04対応
+echo "sshdポート変更の、ubuntu24.04への対応をします。"
+echo "Port "$sshd > /etc/ssh/sshd_config.d/99-override.conf
+sed -i -e s/".*ListenStream=.*"/"ListenStream=$sshd"/ /usr/lib/systemd/system/ssh.socket
+systemctl daemon-reload
+sudo systemctl restart ssh
+
+#ファイアウォールのインストールと変更したsshdポートの許可
+apt-get install ufw
+ufw allow $sshd/tcp
+
+#ファイアウォールの開始
+echo 
+echo "ファイアウォールを開始します。yと入力し、[ENTER]を入力して下さい。"
+ufw enable
+ufw status
+
+
+echo "あたらしいユーザと sshdポートの設定が完了しました。"
+echo "このサーバは、次回からのログインは、rootとしてのログインは出来なくなります。"
+echo "今回ログインに使用した　'ssh root@"$ip"'　は、使用出来ません"
+echo "次回からこのサーバにログインする為には以下の命令を実行して下さい"
+echo "ssh -p "$sshd" "$username"@"$ip
+echo
+echo "あたらしい端末から、上記の命令でサーバにログイン出来たら、この端末はログアウトして構いません。"
+
+#別の端末でログイン出来たかの確認
+a="n"
+while [ $a = "n" ]
+do
+
+	echo "！！！別の端末から、上記のコマンドで、あたらしいユーザにログイン出来ましたか？！！！"
+	echo "ログイン出来なかった場合は、'n' を入力して、[ENTER]を押して下さい。"
+	read a
+
+	if [ ! $a = "n" ]; then
+		echo "別の端末から、サーバにログイン出来たので、この端末は、閉じて構いません。"
+		echo "これで、サーバの新規ユーザアカウント作成とログインポート変更スクリプトは、終了します。"
+		exit 0
+	elif [ -z "$a" ]; then
+		echo "別の端末から、サーバにログイン出来たので、この端末は、閉じて構いません。"
+		echo "これで、サーバの新規ユーザアカウント作成とログインポート変更スクリプトは、終了します。"
+		exit 0
+	fi
+
+	#変更したい  sshdポートの入力
+	echo "'sshdポート' の再設定をします。現在の 'sshポート' は、'"$sshd"' です。"
+	echo "？？？変更したい 'sshdポート' を入力して、[ENTER]を押して下さい？？？"
+	read sshd
+
+	#ファイアウォールのリセット
+	echo "ファイアウォールをリセットしています。'y' と入力して、[ENTER]を押して下さい。"
+	ufw reset
+
+	#sshdポートの設定変更
+	echo "'sshdポート' の設定を変更しています。"
+	sed -i -e s/".*Port .*"/"Port $sshd"/ /etc/ssh/sshd_config
+	echo "'sshdポート' を '"$sshd"' に設定しました。"
+	systemctl restart sshd
+
+	#sshdポートの変更_ubuntu24.04対応
+	echo "sshdポート変更の、ubuntu24.04への対応をします。"
+	echo "Port "$sshd > /etc/ssh/sshd_config.d/99-override.conf
+	sed -i -e s/".*ListenStream=.*"/"ListenStream=$sshd"/ /usr/lib/systemd/system/ssh.socket
+	systemctl daemon-reload
+	sudo systemctl restart ssh
+
+
+	#ファイアウォールの設定と再起動
+	echo "ファイアウォールを設定して、再起動しています。'y' と入力して、[ENTER]を押して下さい。"
+	ufw allow $sshd/tcp
+	ufw enable
+
+	echo 
+	echo "！！！下記のコマンドが、あたらしいログイン命令になります。！！！"
+	echo "ssh -p "$sshd" "$username"@"$ip
+	echo 
+
+done
+
+
