@@ -1,0 +1,21 @@
+#!/bin/bash
+sudo curl https://get.docker.com | sh
+sudo usermod -aG docker $USER
+sudo systemctl start docker
+sudo systemctl enable docker
+docker -v
+sudo curl -L https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose -v
+sudo systemctl restart docker
+#
+#idd
+#(Install_Docker_Docker-compose)
+#docoerとdocker-composeｲﾝｽﾄｰﾗ
+#
+#$USERで実行推奨
+#以上の shoellscriptを実行後に
+#sudo su
+#su ﾕｰｻﾞｰ名
+#で権限が適用される
+#
