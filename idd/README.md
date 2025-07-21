@@ -1,5 +1,8 @@
 2025_07_21
 ```
+idd(Install_Docker_Docker-compose)の説明
+docker及び docker-composeを ｲﾝｽﾄｰﾙする shoellscript
+
 ｻｰﾊﾞで userAccountを作成して、userAccountに ﾛｸﾞｲﾝした後に実行する。
 userの homeﾃﾞｨﾚｸﾄﾘでの実行を推奨する。
 この shellscriptを実行する事により、
