@@ -10,7 +10,7 @@ docker-compose
 
 実行方法
 cd
-wget
+wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/idd/idd
 sh idd
 
 この shellscriptを実行後に、
