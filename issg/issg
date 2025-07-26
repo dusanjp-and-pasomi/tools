@@ -1,0 +1,159 @@
+#!/bin/bash
+#
+#issgの動作には venvと ﾗｲﾌﾞﾗﾘの ｲﾝｽﾄｰﾙが必要
+#
+#venvｲﾝｽﾄｰﾙ
+#sudo apt update
+#version=$(python3 -V | sed 's/^P/p/; s/ //g' | sed 's/\.[^\.]*$//')
+#sudo apt install -y $version-venv
+#
+#
+#ﾗｲﾌﾞﾗﾘのｲﾝｽﾄｰﾙ
+#sudo apt-get install -y libssl-dev
+#sudo apt install -y build-essential python3-dev
+#sudo apt install -y gettext
+#
+#
+#実行方法
+#chmod +x issg
+#./issg
+#
+#
+#実行後
+#env名を入力
+#shoestring-"の後に続く directory名を入力
+#branche名を入力（入力が無い場合は branche無し）
+#
+#
+#
+#
+#作成した nodeの動作には dockerと docker-composeが必要
+#以下はｲﾝｽﾄｰﾙｽｸﾘﾌﾟﾄ
+#!/bin/bash
+#sudo curl https://get.docker.com | sh
+#sudo usermod -aG docker $USER
+#sudo systemctl start docker
+#sudo systemctl enable docker
+#docker -v
+#sudo curl -L https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+#sudo chmod +x /usr/local/bin/docker-compose
+#docker-compose -v
+#sudo systemctl restart docker
+#
+#ﾛｸﾞｱｳﾄして再ﾛｸﾞｲﾝ後に権限が適用される
+#sudo su
+#su ﾕｰｻﾞ名
+#以上の操作で権限が適用される
+#
+#
+#
+
+echo 'どのリポジトリを使用しますか？'
+echo '①　https://github.com/symbol/product.git'
+echo '②　https://github.com/ccHarvestasya/product.git'
+echo '③　https://github.com/dusanjp-and-pasomi/product.git'
+echo '①　②　③  のどれかを選択して下さい。'
+read r
+if [ $r -eq 1 ]; then
+	githubUrl='https://github.com/symbol/product.git'
+elif [ $r -eq 2 ]; then
+	githubUrl='https://github.com/ccHarvestasya/product.git'
+elif [ $r -eq 3 ]; then
+	githubUrl='https://github.com/dusanjp-and-pasomi/product.git'
+else
+	echo '番号に該当するリポジトリがありません。issgを終了します。'
+	exit
+fi
+
+echo $r' の '$githubUrl' が選択されました。'
+
+cd
+mkdir -p ~/envs
+cd ~/envs
+echo $(pwd) && ls
+
+echo -e '\e[41m'
+echo '"env"の後に続く env名を入力して下さい' && read envName
+echo -e '\e[0m'
+
+if [ -d "env$envName" ]; then
+  echo -e '\e[41m'
+  echo $(pwd) && ls
+  echo 'すでに同じ名前の "env'$envName'" があります'
+  echo '作業を終了します'
+  echo -e '\e[0m'
+  exit 1
+fi
+
+python3 -m venv env$envName
+source ~/envs/env$envName/bin/activate
+echo -e '\e[41m'
+echo $(pwd) && ls
+echo '環境：~/envs/env'$envName' が作成されました'
+echo -e '\e[0m'
+
+cd && mkdir -p shoestring-git
+cd shoestring-git
+echo $(pwd) && ls
+echo -e '\e[41m'
+#echo 'shoestring-"の後に続く directory名を入力して下さい' && read directoryName
+directoryName=$envName
+echo -e '\e[0m'
+
+if [ -d "shoestring-$directoryName" ]; then
+  echo -e '\e[41m'
+  echo $(pwd) && ls
+  echo 'すでに同じ名前の "'shoestring-$directoryName'" があります'
+  echo '今回の作業で作成された環境： ~/envs/env'$envName' を削除し　作業を終了します'
+  echo -e '\e[0m'
+  rm -rf ~/envs/env$envName
+  exit 1
+fi
+
+mkdir shoestring-$directoryName
+echo -e '\e[41m'
+echo $(pwd) && ls
+echo 'directory: ~/shoestring-git/shoestring-'$directoryName' が作成されました'
+
+cd shoestring-$directoryName
+echo 'branche名を入力して下さい　' && read brancheName
+echo -e '\e[0m'
+
+branche=' -b '$brancheName && echo $branche
+if [ -z "$brancheName" ]; then
+    branche=""
+fi
+
+
+echo -e '\e[41m'
+echo 'git clone '$githubUrl$branche' を実行します'
+echo -e '\e[0m'
+
+git clone $githubUrl$branche
+
+echo -e '\e[41m'
+echo $(pwd) && ls
+echo '~/shoestring-git/shoestring-'$directoryName' に　product branche: '$brancheName' がダウンロードされました'
+echo -e '\e[0m'
+
+pip install -e product/tools/shoestring
+pip install -r product/tools/shoestring/requirements.txt
+
+
+#強制日本語導入
+cd product/tools/shoestring/shoestring/lang/ja/LC_MESSAGES
+rm -f messages.po
+wget https://github.com/ccHarvestasya/product/raw/refs/heads/shoestring/japanese_lang_support/tools/shoestring/shoestring/lang/ja/LC_MESSAGES/messages.po
+
+msgfmt messages.po -o messages.mo
+cd ../../en/LC_MESSAGES
+msgfmt messages.po -o messages.mo
+
+echo -e '\e[41m'
+echo 'product branche: '$brancheName' がインストールされました'
+echo '~/shoestring-git/shoestring-'$directoryName' の　product branche: '$brancheName' を使用するには'
+echo 'source ~/envs/env'$envName'/bin/activate'
+echo 'と命令して下さい'
+
+pip list|grep shoestring
+echo -e '\e[0m'
