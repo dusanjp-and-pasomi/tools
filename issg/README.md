@@ -29,7 +29,7 @@ https://github.com/dusanjp-and-pasomi/product.git
 
 
 
-② delenv(Delete-env)
+② delenv(Delete-Env)
 issgを使用して作成された各 shoestringの使用環境の削除を行う。
 env名を入力すると、$HOME/envs内の環境と、
 環境に対応した $HOME/shoestring-git/内の symbol-shoestringが削除される。
@@ -69,7 +69,7 @@ https://github.com/dusanjp-and-pasomi/product.git
 
 
 
-② delenv(Delete-env)
+② delenv(Delete-Env)
 Delete the usage environment of each shoestring created using issg.
 When you enter an env name, the environment in $HOME/envs and the symbol-shoestring in $HOME/shoestring-git/ that corresponds to the environment will be deleted.
 
