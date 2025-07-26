@@ -1,0 +1,29 @@
+#!/bin/bash
+echo $HOME'/envs/' && ls $HOME/envs
+echo
+echo $HOME'/shoestring-git/' && ls $HOME/shoestring-git
+echo
+echo '\e[41m'
+echo '削除したい envの "env"の後に続く env名を入力して下さい' && read envName
+echo '\e[0m'
+if [ ! -d "$HOME/envs/env$envName" ]; then
+	echo '\e[33m'
+	echo $HOME'/envs/env'$envName' は、存在しません。delenvを終了します。'
+	echo '\e[0m'
+	exit 1
+fi
+echo
+echo '\e[41m'
+echo $HOME/envs/'env'$envNameと $HOME/shoestring-git/'shoestring-'$envName を削除します。
+echo '\e[0m'
+rm -rf $HOME/envs/env$envName
+rm -rf $HOME/shoestring-git/shoestring-$envName
+echo
+echo $HOME'/envs/' && ls $HOME/envs
+echo
+echo $HOME'/shoestring-git/' && ls $HOME/shoestring-git
+echo
+echo '\e[41m'
+echo $HOME/envs/'env'$envName'と'
+echo $HOME/shoestring-git/'shoestring-'$envName'を削除しました。'
+echo '\e[0m'
