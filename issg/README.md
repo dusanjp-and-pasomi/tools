@@ -27,6 +27,8 @@ https://github.com/ccHarvestasya/product.git
 https://github.com/dusanjp-and-pasomi/product.git
 以上の 3 ﾘﾎﾟｼﾞﾄﾘから選択可能。
 
+
+
 ② delenv(Delete-env)
 issgを使用して作成された各 shoestringの使用環境の削除を行う。
 env名を入力すると、$HOME/envs内の環境と、
@@ -64,6 +66,8 @@ Currently, you can choose from the following three repositories:
 https://github.com/symbol/product.git
 https://github.com/ccHarvestasya/product.git
 https://github.com/dusanjp-and-pasomi/product.git
+
+
 
 ② delenv(Delete-env)
 Delete the usage environment of each shoestring created using issg.
