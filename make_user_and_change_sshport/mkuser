@@ -42,7 +42,7 @@ echo "sshdポート変更の、ubuntu24.04への対応をします。"
 echo "Port "$sshd > /etc/ssh/sshd_config.d/99-override.conf
 sed -i -e s/".*ListenStream=.*"/"ListenStream=$sshd"/ /usr/lib/systemd/system/ssh.socket
 systemctl daemon-reload
-sudo systemctl restart ssh
+systemctl restart ssh
 
 #ファイアウォールのインストールと変更したsshdポートの許可
 apt-get install ufw
