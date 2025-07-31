@@ -102,7 +102,7 @@ do
 	echo "Port "$sshd > /etc/ssh/sshd_config.d/99-override.conf
 	sed -i -e s/".*ListenStream=.*"/"ListenStream=$sshd"/ /usr/lib/systemd/system/ssh.socket
 	systemctl daemon-reload
-	sudo systemctl restart ssh
+	systemctl restart ssh
 
 
 	#ファイアウォールの設定と再起動
