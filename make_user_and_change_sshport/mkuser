@@ -51,7 +51,7 @@ ufw allow $sshd/tcp
 #ファイアウォールの開始
 echo 
 echo "ファイアウォールを開始します。yと入力し、[ENTER]を入力して下さい。"
-ufw enable
+ufw enable --force
 ufw status
 
 
@@ -89,7 +89,7 @@ do
 
 	#ファイアウォールのリセット
 	echo "ファイアウォールをリセットしています。'y' と入力して、[ENTER]を押して下さい。"
-	ufw reset
+	ufw reset --force
 
 	#sshdポートの設定変更
 	echo "'sshdポート' の設定を変更しています。"
@@ -108,7 +108,7 @@ do
 	#ファイアウォールの設定と再起動
 	echo "ファイアウォールを設定して、再起動しています。'y' と入力して、[ENTER]を押して下さい。"
 	ufw allow $sshd/tcp
-	ufw enable
+	ufw enable --force
 
 	echo 
 	echo "！！！下記のコマンドが、あたらしいログイン命令になります。！！！"
