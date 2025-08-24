@@ -24,9 +24,9 @@ echo "ssh -p "$sshd" "$username"@"$ip
 #あたらしいユーザの設定
 echo 
 echo "あたらしいユーザ '"$username"' の登録をします。"
-echo "パスワードを入力し、[ENTER]、再度確認の為にパスワードを再度入力し、[ENTER]、"
-echo "その後、[ENTER]を6回入力して下さい。"
-adduser $username
+echo "パスワードを入力し、[ENTER]を入力、"
+echo "再度確認の為にパスワードを再度入力し、[ENTER]を入力して下さい。"
+adduser $username --gecos ""
 gpasswd -a $username sudo
 
 #sshdポートの変更
@@ -50,8 +50,8 @@ ufw allow $sshd/tcp
 
 #ファイアウォールの開始
 echo 
-echo "ファイアウォールを開始します。yと入力し、[ENTER]を入力して下さい。"
-ufw enable --force
+echo "ファイアウォールを開始します。"
+ufw --force enable
 ufw status
 
 
@@ -87,9 +87,9 @@ do
 	echo "？？？変更したい 'sshdポート' を入力して、[ENTER]を押して下さい？？？"
 	read sshd
 
-	#ファイアウォールのリセット
-	echo "ファイアウォールをリセットしています。'y' と入力して、[ENTER]を押して下さい。"
-	ufw reset --force
+	#ファイアウォールの設定のリセット
+	echo "ファイアウォールの設定をリセットしています。"
+	ufw --force reset
 
 	#sshdポートの設定変更
 	echo "'sshdポート' の設定を変更しています。"
@@ -102,13 +102,11 @@ do
 	echo "Port "$sshd > /etc/ssh/sshd_config.d/99-override.conf
 	sed -i -e s/".*ListenStream=.*"/"ListenStream=$sshd"/ /usr/lib/systemd/system/ssh.socket
 	systemctl daemon-reload
-	systemctl restart ssh
+	sudo systemctl restart ssh
 
-
-	#ファイアウォールの設定と再起動
-	echo "ファイアウォールを設定して、再起動しています。'y' と入力して、[ENTER]を押して下さい。"
+	#ファイアウォールの再設定
+	echo "ファイアウォールを再設定しています。"
 	ufw allow $sshd/tcp
-	ufw enable --force
 
 	echo 
 	echo "！！！下記のコマンドが、あたらしいログイン命令になります。！！！"
@@ -116,5 +114,3 @@ do
 	echo 
 
 done
-
-
