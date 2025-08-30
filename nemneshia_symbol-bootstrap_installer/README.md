@@ -1,4 +1,4 @@
-## nemneshia_symbol-bootstrap_installer 'nsbi'
+# nemneshia_symbol-bootstrap_installer 'nsbi'
 
 2025_08_31現在、本家では nodeVer.1.0.3.8に対応した symbol-bootstrapは発表されていません。
 
@@ -12,7 +12,7 @@ https://github.com/nemnesia/symbol-bootstrap
 
 'nsbi'は、これをインストールする shellscriptです。
 
-# 使用方法
+## 使用方法
 
 $HOMEにて
 
