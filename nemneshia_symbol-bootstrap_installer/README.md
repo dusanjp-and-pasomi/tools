@@ -14,7 +14,7 @@ https://github.com/nemnesia/symbol-bootstrap
 
 ## 使用方法
 
-*$HOMEにて
+* $HOMEにて
 
 `wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/nemneshia_symbol-bootstrap_installer/nsbi`
 
