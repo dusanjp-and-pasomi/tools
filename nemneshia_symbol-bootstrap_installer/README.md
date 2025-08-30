@@ -18,6 +18,7 @@ $HOMEにて
 使用方法は従来の symbol-bootstrapと変わりはありません。  
 symbol-bootstrapと打たなくても、sbでも動作します。  
 
-nemneshia-symbol-bootstrapは、いくつかの機能の追加がされています。詳しくは、  
+nemneshia-symbol-bootstrapは、いくつかの機能の追加がされています。  
+詳しくは、    
 https://github.com/nemnesia/symbol-bootstrap  
 上記ページを参照して下さい。
