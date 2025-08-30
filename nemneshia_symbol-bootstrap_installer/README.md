@@ -8,7 +8,7 @@
 
 github上の
 
-`https://github.com/nemnesia/symbol-bootstrap`
+https://github.com/nemnesia/symbol-bootstrap
 
 'nsbi'は、これをインストールする shellscriptです。
 
