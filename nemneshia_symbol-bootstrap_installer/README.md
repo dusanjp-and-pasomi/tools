@@ -11,5 +11,7 @@ https://github.com/nemnesia/symbol-bootstrap
 
 $HOMEにて
 `wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/nemneshia_symbol-bootstrap_installer/nsbi`
+
 `sh nsbi`
+
 これで、symbol-bootstrapは 1.0.3.8に対応します。
