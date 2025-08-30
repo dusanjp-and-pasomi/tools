@@ -20,7 +20,7 @@ $HOMEにて
 
 これで、symbol-bootstrapは 1.0.3.8に対応したものになります。  
 使用方法は従来の symbol-bootstrapと変わりはありません。  
-symbol-bootstrapと打たなくても、sbでも動作します。  
+`symbol-bootstrap`と打たなくても、`sb`でも動作します。  
 
 nemneshia-symbol-bootstrapは、いくつかの機能の追加がされています。  
 詳しくは、    
