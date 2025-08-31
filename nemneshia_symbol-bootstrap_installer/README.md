@@ -1,7 +1,7 @@
 ## ※注意  
 'nsbi' を実行する前には必ず  
 target/addresses.ymlを復号して、  
-node acount(main/transport/remote/vrf)の秘密鍵を確保して下さい。  
+node account(main/transport/remote/vrf)の秘密鍵を確保して下さい。  
 symbol-bootstrapのアップデート後に nodeパスワードが通らなくなる事があります。  
 addresses.ymlの復号命令（作業ディレクトリで実行）：  
 `symbol-bootstrap decrypt --source target/addresses.yml --destination b_addresses.yml`  
