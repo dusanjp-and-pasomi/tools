@@ -5,22 +5,6 @@ echo
 echo "ノードの操作に使う、あたらしいユーザを作成します。作成するユーザー名を入力して下さい。"
 read username
 
-#sshdポートの変更
-echo 
-echo "サーバにログインする際の sshdポートをデフォルトの 22から変更します。変更したい sshdポートを入力して下さい。"
-read sshd
-
-#サーバのIPアドレスの取得
-ip=$(curl -4 ifconfig.me)
-echo 
-echo "このサーバのIPは "$ip" です。このサーバにログインする際は、このIPを使用して下さい。"
-
-#次回以降にログインする際のログイン方法の表示
-echo "このサーバは、次回からのログインは、rootとしてのログインは出来なくなります。"
-echo "次回からこのサーバにログインする為には以下の命令を実行して下さい"
-echo "ssh -p "$sshd" "$username"@"$ip
-
-
 #あたらしいユーザの設定
 echo 
 echo "あたらしいユーザ '"$username"' の登録をします。"
@@ -29,88 +13,86 @@ echo "再度確認の為にパスワードを再度入力し、[ENTER]を入力�
 adduser $username --gecos ""
 gpasswd -a $username sudo
 
-#sshdポートの変更
-echo 
-echo "sshdポートを 22 から "$sshd" へ変更しています。"
+#ファイアウォールのインストール
+echo "ファイアウォールをインストールしています。"
+apt install -y ufw
+
+#sshd_configのログイン portの設定準備
+echo "sshdポートを変更する準備をしています。"
 sed -i -e s/"#Port .*"/"Port 22"/ /etc/ssh/sshd_config
-sed -i -e s/"Port .*"/"Port $sshd"/ /etc/ssh/sshd_config
+
+#sshd_configの rootでのログインの禁止設定
+echo "rootでのログインの禁止を設定しています。"
 sed -i -e s/"PermitRootLogin .*"/"PermitRootLogin no"/ /etc/ssh/sshd_config
-systemctl restart sshd
 
-#sshdポートの変更_ubuntu24.04対応
-echo "sshdポート変更の、ubuntu24.04への対応をします。"
-echo "Port "$sshd > /etc/ssh/sshd_config.d/99-override.conf
-sed -i -e s/".*ListenStream=.*"/"ListenStream=$sshd"/ /usr/lib/systemd/system/ssh.socket
-systemctl daemon-reload
-systemctl restart ssh
-
-#ファイアウォールのインストールと変更したsshdポートの許可
-apt-get install ufw
-ufw allow $sshd/tcp
-
-#ファイアウォールの開始
+#サーバのIPアドレスの取得
+ip=$(curl -4 ifconfig.me)
 echo 
-echo "ファイアウォールを開始します。"
-ufw --force enable
-ufw status
+echo "このサーバのIPは "$ip" です。このサーバにログインする際は、このIPか、"
+echo $ip" に対応したドメインを使用して下さい。"
 
-
-echo "あたらしいユーザと sshdポートの設定が完了しました。"
-echo "このサーバは、次回からのログインは、rootとしてのログインは出来なくなります。"
-echo "今回ログインに使用した　'ssh root@"$ip"'　は、使用出来ません"
-echo "次回からこのサーバにログインする為には以下の命令を実行して下さい"
-echo "ssh -p "$sshd" "$username"@"$ip
-echo
-echo "あたらしい端末から、上記の命令でサーバにログイン出来たら、この端末はログアウトして構いません。"
-
-#別の端末でログイン出来たかの確認
-a="n"
-while [ $a = "n" ]
+#設定した sshdポートでのログインが成功するまで sshdポートを設定を繰り返す
+continue="y"
+while [ $continue = "y" ]
 do
 
-	echo "！！！別の端末から、上記のコマンドで、あたらしいユーザにログイン出来ましたか？！！！"
-	echo "ログイン出来なかった場合は、'n' を入力して、[ENTER]を押して下さい。"
-	read a
-
-	if [ ! $a = "n" ]; then
-		echo "別の端末から、サーバにログイン出来たので、この端末は、閉じて構いません。"
-		echo "これで、サーバの新規ユーザアカウント作成とログインポート変更スクリプトは、終了します。"
-		exit 0
-	elif [ -z "$a" ]; then
-		echo "別の端末から、サーバにログイン出来たので、この端末は、閉じて構いません。"
-		echo "これで、サーバの新規ユーザアカウント作成とログインポート変更スクリプトは、終了します。"
-		exit 0
-	fi
-
-	#変更したい  sshdポートの入力
-	echo "'sshdポート' の再設定をします。現在の 'sshポート' は、'"$sshd"' です。"
-	echo "？？？変更したい 'sshdポート' を入力して、[ENTER]を押して下さい？？？"
+	#sshdポートの変更
+	echo 
+	echo "サーバにログインする際の sshdポートを変更します。変更したい sshdポートを入力して下さい。"
 	read sshd
 
-	#ファイアウォールの設定のリセット
-	echo "ファイアウォールの設定をリセットしています。"
-	ufw --force reset
-
-	#sshdポートの設定変更
-	echo "'sshdポート' の設定を変更しています。"
+	#sshdポートの変更
+	echo 
+	echo "sshdポートを "$sshd" へ変更して、sshdを再起動しています。"
 	sed -i -e s/".*Port .*"/"Port $sshd"/ /etc/ssh/sshd_config
-	echo "'sshdポート' を '"$sshd"' に設定しました。"
 	systemctl restart sshd
 
 	#sshdポートの変更_ubuntu24.04対応
-	echo "sshdポート変更の、ubuntu24.04への対応をします。"
+	echo "sshdポート変更の、ubuntu24.04への対応をしています。"
 	echo "Port "$sshd > /etc/ssh/sshd_config.d/99-override.conf
 	sed -i -e s/".*ListenStream=.*"/"ListenStream=$sshd"/ /usr/lib/systemd/system/ssh.socket
 	systemctl daemon-reload
-	sudo systemctl restart ssh
+	systemctl restart ssh
 
-	#ファイアウォールの再設定
-	echo "ファイアウォールを再設定しています。"
+	#ファイアウォールのリセットと変更した sshdポートの許可
+	echo "ファイアウォールの設定をリセットして、ポート "$sshd" を許可しています。"
+	ufw --force reset 
 	ufw allow $sshd/tcp
 
+	#ファイアウォールの開始
 	echo 
-	echo "！！！下記のコマンドが、あたらしいログイン命令になります。！！！"
-	echo "ssh -p "$sshd" "$username"@"$ip
-	echo 
+	echo "ファイアウォールを開始しています。"
+	ufw --force enable
 
+	#ファイアウォール設定を表示
+	echo "ファイアウォールの設定を表示します。"
+	echo
+	ufw status
+	echo
+
+	#設定した userと sshdポートでログイン出来るかの確認を作業者へ指示
+	echo "あたらしいユーザと sshdポートの設定が完了しました。"
+	echo "このサーバは、次回からのログインは、rootとしてのログインは出来なくなります。"
+	echo "今回このサーバへのログインに使用した　'ssh root@"$ip"'　は、使用出来ません"
+	echo "次回からこのサーバにログインする為には以下の命令を実行して下さい"
+	echo "ssh -p "$sshd" "$username"@"$ip
+	echo
+	echo "または"
+	echo "ssh -p "$sshd" "$username"@[IPに対応したドメイン]"
+	echo
+	echo "この端末とは別の端末から、上記の命令でサーバにログイン出来たら、この端末はログアウトして構いません。"
+
+	#作業者へ設定した userと ssgdポートでログイン出来たかを尋ねて、失敗なら再設定へ戻す
+	echo "\033[1;31m！！！別の端末から、上記のコマンドで、あたらしいユーザにログイン出来ましたか？！！！\033[0m"
+	echo "\033[1;31mログイン出来なかった場合は、'n' を入力して、[ENTER]を押して下さい。\033[0m"
+	read yn
+
+	if [ ! "$yn" = "n" ]; then
+		echo "別の端末から、サーバにログイン出来たので、この端末は、閉じて構いません。"
+		echo "これで、サーバの新規ユーザアカウント作成とログインポート変更スクリプトは、終了します。"
+		continue=n
+	else
+		echo "別の端末から、サーバにログイン出来ていないので、sshdポート設定をやり直します。"
+		echo
+	fi
 done
