@@ -3,7 +3,7 @@
 symbol-bootstrapのアップデート後に nodeパスワードが通らなくなる事があります。  
 addresses.ymlの復号命令（作業ディレクトリで実行）：  
 `symbol-bootstrap decrypt --source target/addresses.yml --destination b_addresses.yml`  
-'nsbi'実行後に nodeパスワードが通らなくなった場合は、
+'nsbi'実行後に nodeパスワードが通らなくなった場合は、  
 `cp b_addresses.yml target/addresses.yml`  
 を実行して下さい。
   
