@@ -1,10 +1,10 @@
 ## ※注意  
 'nsbi'を実行する前には必ず node acount(main/transport/remote/vrf)の秘密鍵を確保して下さい。  
 symbol-bootstrapのアップデート後に nodeパスワードが通らなくなる事があります。  
-addresses.ymlの復号命令：  
+addresses.ymlの復号命令（作業ディレクトリで実行）：  
 `symbol-bootstrap decrypt --source target/addresses.yml --destination b_addresses.yml`  
 'nsbi'実行後に nodeパスワードが通らなくなった場合は、
-`cp b_addresses.yml target/`  
+`cp b_addresses.yml target/addresses.yml`  
 を実行して下さい。
   
 # nemneshia_symbol-bootstrap_installer 'nsbi'
