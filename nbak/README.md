@@ -7,7 +7,7 @@ nodeを構成するファイルが無くなり、この後に、
 upgrade命令を実行する前に、nodeの構成ファイルをバックアップして置く事をおすすめします。  
   
   
-- 【使用方法】
+* 【使用方法】
 nodeの作業ディレクトリ（docker-compose.yamlがある場所）で、  
 `wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/nbak/nbak`  
 'sh nbak`  
