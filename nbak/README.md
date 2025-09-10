@@ -7,7 +7,7 @@ nodeを構成するファイルが無くなり、この後に、
 upgrade命令を実行する前に、nodeの構成ファイルをバックアップして置く事をおすすめします。  
   
   
-- 【使用方法】
+- 【使用方法】  
 nodeの作業ディレクトリ（docker-compose.yamlがある場所）で、  
 `wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/nbak/nbak`  
 `sh nbak`  
@@ -15,7 +15,7 @@ nodeの作業ディレクトリ（docker-compose.yamlがある場所）で、
 この時、dataと dbdataディレクトリは保存しません。  
 upgrede命令で失敗しても、dataと dbdataディレクトリは破壊されないので、また、コピーに時間が掛かる為、除外しました。  
   
-- 【復旧方法】
+- 【復旧方法】  
 upgrade命令で失敗して、再度正しい設定ファイルと命令の記述で upgrade命令を実行してもエラーが出る様になったら、  
 `sudo cp -r bak/* . && sudo chown -R 1000 .`  
 これで、upgrade命令で失敗する以前の nodeの構成ファイルが復活します。  
