@@ -1,0 +1,19 @@
+#!/bin/bash
+rm -rf bak && mkdir bak
+cp -r keys bak/
+cp -r shoestring bak/
+cp -r rest-cache bak/
+cp -r startup bak/
+cp -r docker-compose.yaml bak/
+cp -r docker-compose-recovery.yaml bak/
+cp -r logs bak/
+cp -r seed bak/
+cp -r userconfig bak/
+cp -r mongo bak/
+cp -r linking_transaction.dat bak/
+cp -r ca.key.pem bak/
+cp -r renew_voting_keys_transaction.dat bak
+#
+#upgradeで失敗した時は以下の命令を実行
+#sudo cp -r bak/* . && sudo chown -R 1000 .
+#
