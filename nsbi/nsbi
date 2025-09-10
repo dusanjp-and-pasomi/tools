@@ -1,0 +1,10 @@
+#!/bin/bash
+cd
+sudo npm uninstall -g symbol-bootstrap
+rm -rf nemneshia && mkdir nemneshia && cd nemneshia
+git clone https://github.com/nemneshia/symbol-bootstrap.git
+cd symbol-bootstrap
+npm install
+npm run build
+sudo npm install -g .
+symbol-bootstrap --version
