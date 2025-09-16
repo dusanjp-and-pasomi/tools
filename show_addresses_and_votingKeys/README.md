@@ -49,5 +49,5 @@ shoestringNodeの作業ディレクトリで、
   
 これは、https://github.com/nemnesia/agent-s  
 作者：  
-https://x.com/ccHarvestasya
+https://x.com/ccHarvestasya 氏
 のコードをお借りし、拡張をしたものです。
