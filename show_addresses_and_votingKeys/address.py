@@ -4,6 +4,7 @@ import re
 import glob
 import argparse
 import configparser
+from getpass import getpass
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
@@ -105,15 +106,18 @@ def process_voting_keys():
             break
     
     if not voting_dir:
-        print("Error: Neither 'keys/voting' nor 'node/keys/voting' directory found.")
+        print("votingKeyはありません。")
         return
     
     # private_key_tree*.dat ファイルを取得
     files = glob.glob(os.path.join(voting_dir, "private_key_tree*.dat"))
     
     if not files:
-        print(f"Error: No files matching 'private_key_tree*.dat' found in {voting_dir}.")
+        print("votingKeyはありません。")
         return
+    
+    # votingKey情報ヘッダーを表示
+    print("votingKey情報:\t")
     
     # ファイル名から番号を抽出し、降順にソート
     def get_number(filename):
@@ -201,9 +205,25 @@ def read_private_key_from_pem(pem_path):
         try:
             with open(path, "rb") as ca_key_file:
                 ca_key_data = ca_key_file.read()
-                private_key_obj = serialization.load_pem_private_key(
-                    ca_key_data, password=None, backend=default_backend()
-                )
+                try:
+                    # まずパスワードなしで試みる
+                    private_key_obj = serialization.load_pem_private_key(
+                        ca_key_data, password=None, backend=default_backend()
+                    )
+                except (ValueError, TypeError):
+                    # パスワードが必要な場合、ユーザーにパスワードを入力させる（非表示）
+                    password = getpass(f"Enter password for {os.path.basename(path)}: ").encode('utf-8')
+                    if not password:
+                        print(f"Password not provided for {os.path.basename(path)}.")
+                        continue
+                    try:
+                        private_key_obj = serialization.load_pem_private_key(
+                            ca_key_data, password=password, backend=default_backend()
+                        )
+                    except Exception as e:
+                        print(f"Failed to decrypt {os.path.basename(path)}: Invalid password or corrupted key.")
+                        continue
+                
                 der_bytes = private_key_obj.private_bytes(
                     encoding=serialization.Encoding.DER,
                     format=serialization.PrivateFormat.PKCS8,
@@ -211,7 +231,7 @@ def read_private_key_from_pem(pem_path):
                 )
                 der_bytes = der_bytes[16:] # 先頭16バイトを削除
                 return der_bytes.hex().upper()
-        except Exception:
+        except FileNotFoundError:
             continue
     print(f"{os.path.basename(pem_path)} が見つかりませんでした。")
     return None
