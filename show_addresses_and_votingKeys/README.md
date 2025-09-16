@@ -41,7 +41,7 @@ EndEpoch:	4393
 filename:	private_key_tree1.dat
 ```
 # 使用方法
-- ダウンロード
+- ダウンロード  
 shoestringNodeの作業ディレクトリで、  
 `wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/show_addresses_and_votingKeys/address.py`  
 - 実行  
