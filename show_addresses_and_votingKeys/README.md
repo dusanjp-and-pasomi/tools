@@ -44,7 +44,7 @@ filename:	private_key_tree1.dat
 - ダウンロード
 shoestringNodeの作業ディレクトリで、  
 `wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/show_addresses_and_votingKeys/address.py`  
-- 実行
+- 実行  
 `python3 address.py`  
   
 これは、https://github.com/nemnesia/agent-s  
