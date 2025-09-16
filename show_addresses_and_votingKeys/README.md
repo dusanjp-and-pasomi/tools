@@ -42,10 +42,14 @@ filename:	private_key_tree1.dat
 ```
 # 使用方法
 - ダウンロード  
-shoestringNodeの作業ディレクトリで、  
+$HOMEディレクトリで、  
 `wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/show_addresses_and_votingKeys/address.py`  
 - 実行  
-`python3 address.py`  
+shoestringNodeの作業ディレクトリで、  
+`python3 ~/address.py`  
+上記に示した表示例の様に nodeのアドレスと votingKey情報を表示します。  
+  
+  
   
 これは、https://github.com/nemnesia/agent-s  
 作者：  
