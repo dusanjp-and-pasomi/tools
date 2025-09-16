@@ -48,4 +48,6 @@ shoestringNodeの作業ディレクトリで、
 `python3 address.py`  
   
 これは、https://github.com/nemnesia/agent-s  
+作者：  
+https://x.com/ccHarvestasya
 のコードをお借りし、拡張をしたものです。
