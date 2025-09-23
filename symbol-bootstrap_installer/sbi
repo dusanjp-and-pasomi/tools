@@ -1,10 +1,11 @@
 #!/bin/bash
 cd
 sudo npm uninstall -g symbol-bootstrap
+sudo npm uninstall -g @nemneshia/symbol-bootstrap
 rm -rf sbinst && mkdir sbinst && cd sbinst
 git clone https://github.com/symbol/symbol-bootstrap
 cd symbol-bootstrap
-npm install
+npm ci
 npm run build
 sudo npm install -g .
 symbol-bootstrap -v
