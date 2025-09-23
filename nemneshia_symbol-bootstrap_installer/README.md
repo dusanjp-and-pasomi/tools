@@ -37,3 +37,6 @@ nemneshia-symbol-bootstrapは、いくつかの機能の追加がされていま
 詳しくは、    
 https://github.com/nemnesia/symbol-bootstrap  
 上記ページを参照して下さい。
+  
+※環境によっては、上手く動作しない事があります。  
+その場合は、scriptから、sudoを削除して、実行して見て下さい。  
