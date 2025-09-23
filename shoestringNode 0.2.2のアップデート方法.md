@@ -1,7 +1,6 @@
 # 【symbol-shoestring 0.2.2への update手順】
   
-①  
-symbol-shoestring 0.2.2のインストール  
+## ①  symbol-shoestring 0.2.2のインストール  
 `pip install symbol-shoestring`  
   
 ②  
