@@ -1,20 +1,20 @@
 #!/bin/bash
-rm -rf bak && mkdir bak
-cp -r keys bak/
-cp -r shoestring bak/
-cp -r rest-cache bak/
-cp -r startup bak/
-cp -r docker-compose.yaml bak/
-cp -r docker-compose-recovery.yaml bak/
-cp -r logs bak/
-cp -r seed bak/
-cp -r userconfig bak/
-cp -r mongo bak/
-cp -r linking_transaction.dat bak/
-cp -r ca.key.pem bak/
-cp -r renew_voting_keys_transaction.dat bak
-sudo chown -R 1000 https-proxy && cp -r https-proxy bak/
+rm -rf nodebak && mkdir nodebak
+cp -r keys nodebak/
+cp -r shoestring nodebak/
+cp -r rest-cache nodebak/
+cp -r startup nodebak/
+cp -r docker-compose.yaml nodebak/
+cp -r docker-compose-recovery.yaml nodebak/
+cp -r logs nodebak/
+cp -r seed nodebak/
+cp -r userconfig nodebak/
+cp -r mongo nodebak/
+cp -r linking_transaction.dat nodebak/
+cp -r ca.key.pem nodebak/
+cp -r renew_voting_keys_transaction.dat nodebak/
+sudo chown -R 1000 https-proxy && cp -r https-proxy nodebak/
 #
 #upgradeで失敗した時は以下の命令を実行
-#sudo cp -r bak/* . && sudo chown -R 1000 .
+#sudo cp -r nodebak/* . && sudo chown -R 1000 .
 #
