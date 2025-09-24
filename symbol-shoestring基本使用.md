@@ -13,7 +13,7 @@ symbol-shoestringとは、symbol networkを構成する nodeを作成する為�
 ※2025年 9月に bootstrapの新 ver.は発表されました。
 現在、公式が正式にサポートしているものは、symbol-shoestringとなります。  
 以下は、symbol-shoestring(2025_09_05の時点では、バージョンは 0.2.1になります。)  
-を使用した、symbol-shoestringの導入と、これを使用した symbol nodeの作成手順です。 
+を使用した、symbol-shoestringの導入と、これを使用した symbol nodeの作成手順です。  
 サーバを借りてからの手順となります。
   
 # 【①　nodeを作成、操作する為のユーザの作成】
