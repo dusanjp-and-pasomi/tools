@@ -43,7 +43,7 @@ shoestring.iniや overrides.iniのファイル名やファイルの場所が違�
 適宜に変更して下さい。  
   
 ## ③乙 WIZARDで upgradeを実行  
-- mainnet/testnet共通  
+### mainnet/testnet共通  
 
 `python3 -m shoestring.wizard`  
   
