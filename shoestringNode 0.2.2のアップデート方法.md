@@ -44,6 +44,7 @@ shoestring.iniや overrides.iniのファイル名やファイルの場所が違�
   
 ## ③乙 WIZARDで upgradeを実行  
 - mainnet/testnet共通  
+
 `cd 作業ディレクトリ`  
 `python3 -m shoestring.wizard`  
   
