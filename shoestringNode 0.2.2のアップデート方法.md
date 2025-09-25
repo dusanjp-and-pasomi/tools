@@ -13,8 +13,11 @@
 最初から↑の方法の方が確実かな  
   
 # 【shoestringNodeの update手順】  
+## ① nodeを停止  
+`cd 作業ディレクトリ`  
+`docker-compose down`
   
-## ① shoestring/shoestring.iniの [images]項目の 3行を修正  
+## ② shoestring/shoestring.iniの [images]項目の 3行を修正  
 `cd 作業ディレクトリ`  
 `vi shoestring/shoestring.ini`  
   
@@ -27,7 +30,7 @@ mongo = mongo:7.0.23
   
 変更して保存  
   
-## ②甲 upgrade命令を実行  
+## ③甲 upgrade命令を実行  
 - mainnet  
 `python3 -m shoestring upgrade --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd)`
   
@@ -40,7 +43,7 @@ mongo = mongo:7.0.23
 shoestring.iniや overrides.iniのファイル名やファイルの場所が違う場合は、  
 適宜に変更して下さい。  
   
-## ②乙 WIZARDで upgradeを実行  
+## ③乙 WIZARDで upgradeを実行  
 - mainnet/testnet共通
 - `cd 作業ディレクトリ`  
 `python3 -m shoestring.wizard`
