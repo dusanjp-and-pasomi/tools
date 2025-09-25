@@ -56,8 +56,10 @@ shoestring.iniや overrides.iniのファイル名やファイルの場所が違�
 `docker-compose up -d`  
   
 ## ⑤ nodeのバージョン確認  
-`curl localhost:3000/node/server|jq`  
-※ httpの nodeで有効。httpsの nodeは、  
+- httpの nodeの場合  
+`curl localhost:3000/node/server|jq`
+
+- httpsの nodeの場合    
 `curl [nodeの url]:3001/node/server|jq`
   
 `"restVersion": "2.5.1",` となっていたら、成功。
