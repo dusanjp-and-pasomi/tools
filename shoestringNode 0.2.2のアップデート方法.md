@@ -10,7 +10,7 @@
 `pip uninstall symbol-shoestring`  
 `pip install symbol-shoestring==0.2.2`  
 `pip list|grep shoestring`  
-最初から **↑** の方法の方が確実かな  
+最初から ** ↑ ** の方法の方が確実かな  
   
 # 【shoestringNodeの update手順】  
 ## ① nodeを停止  
