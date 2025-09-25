@@ -43,14 +43,14 @@ shoestring.iniや overrides.iniのファイル名やファイルの場所が違�
 適宜に変更して下さい。  
   
 ## ③乙 WIZARDで upgradeを実行  
-mainnet/testnet共通
+- mainnet/testnet共通  
 `cd 作業ディレクトリ`  
-`python3 -m shoestring.wizard`
+`python3 -m shoestring.wizard`  
   
 wizard画面が出るので、**upgrade**を選択  
 作業ディレクトリを指定、[Next]  
-mainnet/testnetを選択、[Next]
-設定内容を確認、[Finish!]
+mainnet/testnetを選択、[Next]  
+設定内容を確認、[Finish!]  
   
 ## ④ nodeを再開  
 `docker-compose up -d`  
