@@ -15,6 +15,9 @@
 # 【shoestringNodeの update手順】  
   
 ## ① shoestring/shoestring.iniの [images]項目の 3行を修正  
+`cd 作業ディレクトリ`  
+`vi shoestring/shoestring.ini`  
+  
 - 修正内容  
 ```
 client = symbolplatform/symbol-server:gcc-1.0.3.9
@@ -24,7 +27,7 @@ mongo = mongo:7.0.23
   
 変更して保存  
   
-## ② upgrade命令を実行  
+## ②甲 upgrade命令を実行  
 - mainnet  
 `python3 -m shoestring upgrade --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd)`
   
@@ -36,3 +39,13 @@ mongo = mongo:7.0.23
 ※  
 shoestring.iniや overrides.iniのファイル名やファイルの場所が違う場合は、  
 適宜に変更して下さい。  
+  
+## ②乙 WIZARDで upgradeを実行  
+- mainnet/testnet共通
+- `cd 作業ディレクトリ`  
+`python3 -m shoestring.wizard`
+  
+- wizard画面が出るので、**upgrade**を選択  
+- 作業ディレクトリを指定、[Next]  
+- mainnet/testnetを選択、[Next]
+- 設定内容を確認、[Finish!]  
