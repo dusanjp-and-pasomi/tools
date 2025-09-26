@@ -18,7 +18,6 @@
 `docker-compose down`
   
 ## ② shoestring/shoestring.iniの [images]項目の 3行を修正  
-`cd 作業ディレクトリ`  
 `vi shoestring/shoestring.ini`  
   
 - 修正内容  
