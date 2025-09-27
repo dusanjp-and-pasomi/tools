@@ -6,6 +6,8 @@ add-symbol-shoestringの改変用ファイルを上書きしたり、
 日本語版を、娘の**ぱそ美**のお嬢様言葉にしちゃったり出来ます。  
 
 # 使用方法
+**cange4**は、symbol-shoestringがインストールされている python環境に入ってから実行して下さい。  
+  
 $HOMEで、  
 `wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/change-shoestring/change4`  
 `sh ~/change4`  
