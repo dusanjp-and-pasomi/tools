@@ -1,0 +1,190 @@
+#!/bin/bash
+
+#msgfmtのバージョンが表示された場合は、msgfmtをインストールしない。
+if msgfmt --version > /dev/null 2>&1; then
+	echo "msgfmtは、既にインストールされています。"
+
+#msgfmtのバージョンが表示されなかった場合は、msgfmt(gettext)をインストールする。
+else
+	echo "msgfmtが、インストールされていません。msgfmt(gettext)をインストールします。"
+	sudo apt install -y gettext
+	echo "msgfmt(gettext)をインストールしました。"
+fi
+
+#symbol-shoestringのインストール場所を見つける。
+shoestringPath=$(pip show symbol-shoestring | grep Location | sed 's/Location: //')
+
+#githubからダウンロードしたファイルの格納場所を空にする。
+rm -rf -f ~/add-symbol-shoestring
+mkdir -p ~/add-symbol-shoestring
+
+#symbol-shoestringの改変をするか聞く。y なら、続行する。それ以外なら終了する。
+echo
+read -p "symbol-shoestringの改変を行います。よろしいですか？ y か n を入力して[ENTER]を押して下さい。(y/N) :" y
+echo
+if [ "$y" != "y" ]; then
+	echo "y 以外が入力されました。この shellscriptを終了します。"
+	exit
+fi
+
+cd $shoestringPath
+#symbol-shoestringに対して、どんな改変をしたいか聞く。
+echo "①　symbol-shoestringの機能を改変する。又は、日本語ファイルを変更する。"
+#$shoestringPathにバックアップ "shoestring_bak"が存在しているかをチェックして、あれば選択肢②　を表示する
+if [ -d "shoestring_bak" ]; then
+	echo "②　元の symbol-shoestringに戻す"
+fi
+#選択肢Ⓑ　symbol-shoestringのバックアップを作成する を表示する
+echo "Ⓑ  symbol-shoestring のバックアップを作成する。"
+
+#1と2以外の選択肢に無い番号が入力されたら、終了する。
+read -p "実行したい番号を入力して、[ENTER]を押して下さい。" y
+echo
+if [ "$y" != "1" ] && [ "$y" != "2" ] && [ "$y" != "b" ]; then
+	echo "1 と 2 以外の番号が入力されました。shellscriptを終了します。"
+	exit
+fi
+
+#②　元の symbol-shoestringに戻す が選択された時の処理
+if [ "$y" = "2" ]; then
+	#バックアップが存在しない為、選択肢②　が表示されない筈なのに、
+	#2 の元に戻すを選択されて、バックアップが無い場合、終了する。
+	if [ ! -d "shoestring_bak" ]; then
+		echo "shoestringのバックアップがありません。shellscriptを終了します。"
+		exit
+	fi
+
+	#バックアップ "shoestring_bak"から、元の symbol-shoestringに戻す。
+	rm -rf shoestring
+	cp -r shoestring_bak shoestring
+	LC_MESSAGES=ja python3 -m shoestring --help
+	echo
+	echo "元の symbol-shoestringに戻りました。"
+	exit
+fi
+
+#Ⓑ  symbol-shoestringのバックアップが選択された場合の処理。
+if [ "$y" = "b" ]; then
+	#shoestring_bakが存在する場合は、現在のバックアップを削除して、
+	#新たにバックアップを作成するか聞く。
+	if [ -d "shoestring_bak" ]; then
+		echo "symbol-shoestringのバックアップは既に存在します。"
+		echo "現在のバックアップを削除して、新たにバックアップを作成しますか？"
+		read -p "y か nを入力して[ENTER]を押して下さい。(y/N) :" y
+		echo
+
+		#y 以外が入力された場合は、バックアップの再作成をせずに、shellscriptを終了する。
+		if [ "$y" != "y" ]; then
+			echo "y 以外が入力されました。バックアップの再作成をせずに、"
+			echo "shellscriptを終了します。"
+			exit
+		fi
+		rm -rf shoestring_bak
+	fi
+
+	#symbol-shoestringのバックアップを作成する。
+	cp -r shoestring shoestring_bak
+	echo "symbol-shoestringのバックアップを作成しました。"
+	exit
+fi
+
+#shoestringPathにバックアップが無かったら、shoestring_bakを作成する。
+if [ ! -d "shoestring_bak" ]; then
+	echo "shoestringのバックアップがありません。バックアップを作成します。"
+	echo
+	cp -r shoestring shoestring_bak
+fi
+
+#symbol-shoestringを初期化する。
+rm -rf shoestring
+cp -r shoestring_bak shoestring
+
+#本家 githubの最新版にするか聞いて、y なら、現在の shoestringを入れ替える。
+cd ~/add-symbol-shoestring
+read -p "githubの最新版にしますか？ y か n を入力して[ENTER]を押して下さい。(y/N) :" y
+if [ "$y" = "y" ]; then
+	echo "y が入力されました。githubの最新版を使用します。"
+	echo
+	git clone https://github.com/symbol/product.git
+	cd product/tools/shoestring/shoestring/lang/en/LC_MESSAGES
+	msgfmt messages.po -o messages.mo
+	cd -
+	rm -rf $shoestringPath/shoestring
+	cp -r product/tools/shoestring/shoestring $shoestringPath/	#
+fi
+
+#add-symbol-shoestring改変ファイルを使用するか聞いて、y なら、改変ファイルを上書きする。
+cd ~/add-symbol-shoestring
+read -p "add-symbol-shoestring改変ファイルを使用しますか？ y か n を入力して[ENTER]を押して下さい。(y/N) :" y
+if [ "$y" = "y" ]; then
+	echo "y が入力されました。add-symbol-shoestring改変ファイルを使用します。"
+	echo
+	git clone https://github.com/dusanjp-and-pasomi/add-symbol-shoestring.git
+	cd add-symbol-shoestring/shoestring/lang/ja/LC_MESSAGES
+	msgfmt messages.po -o messages.mo
+	cd ../../en/LC_MESSAGES			#英語messages上書き部分へ移動
+	msgfmt messages.po -o messages.mo	#messages.poをmoへ変換
+	#rm -rf ../../en			#英語上書き部分を削除する。英語messagesを使用しない場合はこの行を有効にする。
+	cd ~/add-symbol-shoestring
+	cp -r add-symbol-shoestring/shoestring $shoestringPath/
+fi
+
+#ぱそ美（おじょうさま）ファイルを使用するか聞いて、y なら、ぱそ美（おじょうさま）ファイルを上書きする。
+cd ~/add-symbol-shoestring	
+read -p "ぱそ美（おじょうさま）ファイルを使用しますか？ y か n を入力して[ENTER]を押して下さい。(y/N) :" y	
+if [ "$y" = "y" ]; then
+	echo "y が入力されました。ぱそ美（おじょうさま）ファイルを使用します。"
+	echo
+	git clone https://github.com/dusanjp-and-pasomi/pasomi.git
+	cd pasomi/shoestring/lang/ja/LC_MESSAGES
+	msgfmt messages.po -o messages.mo
+	cd -
+	cp -r pasomi/shoestring $shoestringPath/
+fi
+
+#短縮命令を可能にする、aliasを作成する為に、$HOMEに戻る。
+cd
+
+#.bashrc内に alias2_for_shoestringが存在するかをチェックして、無ければ、.bashrcに alias2を書き込む。
+alias=`cat ~/.bashrc|grep alias2_for_shoestring`
+if [ -z "$alias" ]; then
+	echo "alias2_for_shoestring を、~/.bashrc に書き込みます。"
+	echo "~/.bashrcに書き込まれた aliasは、次回のログイン時に反映します。"
+	echo
+	cat << __EOD__ >> ~/.bashrc
+
+#alias2_for_shoestring
+alias ssc="python3 -m shoestring"
+alias ssw="python3 -m shoestring.wizard"
+alias jsc="LC_MESSAGES=ja python3 -m shoestring"
+alias jsw="LC_MESSAGES=ja python3 -m shoestring.wizard"
+alias ja="LC_MESSAGES=ja"
+alias ee="source ~/env/bin/activate"
+alias de="deactivate"
+alias rec="docker compose -f docker-compose-recovery.yaml up --abort-on-container-exit"
+
+__EOD__
+fi
+
+#.bashrc内に alias2+(for_shoestring_directory_node)が存在するかをチェックして、無ければ、.bashrcに alias2+を書き込む。
+alias=`cat ~/.bashrc|grep "alias2+(for_shoestring_directory_node)"`
+if [ -z "$alias" ]; then
+	echo "alias2+(for_shoestring_directory_node) を、~/.bashrc に書き込みます。"
+	echo "~/.bashrcに書き込まれた aliasは、次回のログイン時に反映します。"
+	echo
+	cat << __EOD__ >> ~/.bashrc
+
+#alias2+(for_shoestring_directory_node)
+alias nsetup="mkdir -p node && python3 -m shoestring setup --ca-key-path ca.key.pem --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory node --package "
+alias nupgrade="python3 -m shoestring upgrade --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory node --package "
+alias nup="docker-compose -f node/docker-compose.yaml up -d"
+alias ndown="docker-compose -f node/docker-compose.yaml down"
+alias nreset="python3 -m shoestring reset-data --config shoestring/shoestring.ini --directory node"
+alias nhealth="python3 -m shoestring health --config shoestring/shoestring.ini --directory node"
+alias nrec="docker compose -f node/docker-compose-recovery.yaml up --abort-on-container-exit"
+
+__EOD__
+fi
+
+#symbol-shoestringの命令を表示する。これで、現在の symbol-shoestringはどれかが判る。
+LC_MESSAGES=ja python3 -m shoestring --help
