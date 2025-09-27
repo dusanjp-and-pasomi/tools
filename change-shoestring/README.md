@@ -13,17 +13,25 @@ $HOMEで、
 `sh ~/change4`  
 後は、質問に答えて行けば、shoestringが改変されます。  
 どう改変されるかは、使ってみてのおたのしみw  
+  
 add-symbol-shoestringを選ぶと、  
 nodeはデフォルトで作業ディレクトリには作成されずに、nodeディレクトリを作成し、  
 その中に nodeが作成されますので、  
 nodeの起動と停止等の操作や、ブロックリカバリ等の操作は、nodeディレクトリに入ってから行います。  
+  
 他には、--config --directory --overrides --rest-overrdes等の記述をしなくて良い様に、  
 これらの設定にデフォルト値を設定してあります。  
 shoestring/shoestring.ini  
 shoestring/overrides.ini  
 shoestring/rest_overrides.ini  
 ca.key.pem  
-が、デフォルトの名称で、デフォルトの場所にあれば、これらを記述しなくても動作します。 
+が、デフォルトの名称で、デフォルトの場所にあれば、これらを記述しなくても動作します。  
+  
+つまり、各コマンドの後に続けるサブコマンドの記述が、ほぼ不要になります。  
+  
+node証明書更新命令の renew-certificatesでは、  
+--retain-node-keyを記述しなくても、nodeKey(transport)は以前のものを保持します。  
+  
 詳しい仕様については、  
 https://github.com/dusanjp-and-pasomi/add-symbol-shoestring  
 ↑ に書いてあります。  
