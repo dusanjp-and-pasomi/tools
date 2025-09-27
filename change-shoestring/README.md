@@ -24,7 +24,7 @@ nodeの起動と停止等の操作や、ブロックリカバリ等の操作は�
 これらの設定にデフォルト値を設定してあります。  
 shoestring/shoestring.ini  
 shoestring/overrides.ini  
-shoestring/rest_overrides.ini  
+shoestring/rest_overrides.json  
 ca.key.pem  
 が、デフォルトの名称で、デフォルトの場所にあれば、これらを記述しなくても動作します。  
   
@@ -32,6 +32,18 @@ ca.key.pem
   
 **node証明書更新命令の renew-certificatesでは、**  
 **--retain-node-keyを記述しなくても、nodeKey(transport)は以前のものを保持します**。  
+  
+init-all命令を新設しています。  
+init-all命令では、shoestringディレクトリを作成し、その中に、  
+shoestring.ini  
+overrides.ini  
+rest_overrides.json  
+を作成し、そのまま setup出来る記述にする事も出来ます。  
+**つまり、init-all命令で、setup命令で使用する最低限のファイルが作成出来ます。**  
+
+address命令を新設しています。  
+shoestringでは、作成した nodeの各アドレスの詳細が確認がやりにくいので、  
+**address命令では、各アドレスの詳細と、votingKeysの詳細を表示します。**  
   
 その他の詳しい仕様については、  
 https://github.com/dusanjp-and-pasomi/add-symbol-shoestring  
