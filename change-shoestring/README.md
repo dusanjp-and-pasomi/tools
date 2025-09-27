@@ -1,8 +1,8 @@
 # change4
 pip install symbol-shoestringでインストールした symbol-shoestringを  
 改変しちゃおうって言うヤツです。  
-githubの最新版にしたり、  
-add-symbol-shoestringの改変用ファイルを上書きしたり、  
+**githubの最新版**にしたり、  
+**add-symbol-shoestring**の改変用ファイルを上書きしたり、  
 日本語版を、娘の**ぱそ美**のお嬢様言葉にしちゃったり出来ます。  
   
 ----
