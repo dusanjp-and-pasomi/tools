@@ -15,8 +15,8 @@ $HOMEで、
 どう改変されるかは、使ってみてのおたのしみw  
   
 add-symbol-shoestringを選ぶと、  
-nodeはデフォルトで作業ディレクトリには作成されずに、nodeディレクトリを作成し、  
-その中に nodeが作成されます。  
+**nodeはデフォルトで作業ディレクトリには作成されずに、nodeディレクトリを作成し、**  
+**その中に nodeが作成されます。**  
   
 nodeの起動と停止等の操作や、ブロックリカバリ等の操作は、nodeディレクトリに入ってから行って下さい。  
   
@@ -28,10 +28,10 @@ shoestring/rest_overrides.ini
 ca.key.pem  
 が、デフォルトの名称で、デフォルトの場所にあれば、これらを記述しなくても動作します。  
   
-つまり、各コマンドの後に続けるサブコマンドの記述が、ほぼ不要になります。  
+つまり、**各コマンドの後に続けるサブコマンドの記述が、ほぼ不要になります**。  
   
-node証明書更新命令の renew-certificatesでは、  
---retain-node-keyを記述しなくても、nodeKey(transport)は以前のものを保持します。  
+**node証明書更新命令の renew-certificatesでは、**  
+**--retain-node-keyを記述しなくても、nodeKey(transport)は以前のものを保持します**。  
   
 その他の詳しい仕様については、  
 https://github.com/dusanjp-and-pasomi/add-symbol-shoestring  
