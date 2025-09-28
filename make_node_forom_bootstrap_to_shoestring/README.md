@@ -1,6 +1,6 @@
 # btos(make_node_from_Bootstrap_To_Shoestring)
 これは、symbol-bootstrapで作成されている symbolNodeを、  
-shoestringNodeに（ある程度）変換する shellscriptです。
+shoestringNodeに（ある程度）変換する shellscriptです。  
 **symbol-shoestring0.2.2のインストールが必須です。**
   
 bootstrapNode側の設定  
