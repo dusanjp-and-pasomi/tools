@@ -1,0 +1,272 @@
+#!/bin/bash
+#bootstrapNodeの作業ディレクトリで実行版
+
+bootstrapNodeの作業ディレクトリであるかの確認
+if [ ! -e "$(pwd)/target" ]; then
+  echo '\e[33mここは、bootstrapNodeの作業ディレクトリではありません。\nbootstrapNodeの作業ディレクトリで、この scriptを実行して下さい。\e[0m'
+  exit 1
+fi
+
+#bootstrapNodeのディレクトリ定義
+bootstrapNode=$(pwd)
+#bootstrapNode=$HOME/bootstrapNode
+
+#shoestringNodeのディレクトリ定義
+shoestringNode=$HOME/shoestringNode
+
+#~/bootstrapNodeから resourcesを抽出
+cd $bootstrapNode/target/nodes/node/server-config/resources
+identifier=`grep 'identifier' config-network.properties|sed 's/identifier = //g'`
+roles=`grep 'roles' config-node.properties|sed 's/roles = //g'`
+host=`grep 'host ' config-node.properties|sed 's/host = //g'`
+friendlyName=`grep 'friendlyName' config-node.properties|sed 's/friendlyName = //g'`
+maxUnlockedAccounts=`grep 'maxUnlockedAccounts' config-harvesting.properties|sed 's/maxUnlockedAccounts = //g'`
+delegatePrioritizationPolicy=`grep 'delegatePrioritizationPolicy' config-harvesting.properties|sed 's/delegatePrioritizationPolicy = //g'`
+beneficiaryAddress=`grep 'beneficiaryAddress' config-harvesting.properties|sed 's/beneficiaryAddress = //g'`
+
+#取得した resourcesを表示
+echo '\e[33mconfig-node.propertiesの内容から'
+echo 'identifier: '$identifier
+echo 'roles: '$roles
+echo 'friendlyName: '$friendlyName
+echo 'host: '$host
+
+echo 'config-harvesting.propertiesの内容から'
+echo 'maxUnlockedAccounts: '$maxUnlockedAccounts
+echo 'beneficiaryAddress: '$beneficiaryAddress
+echo 'delegatePrioritizationPolicy: '$delegatePrioritizationPolicy
+
+#HOMEﾃﾞｨﾚｸﾄﾘに $shoestringNode/shoestring/bootstrap-importﾃﾞｨﾚｸﾄﾘを作成
+cd && rm -rf $shoestringNode
+cd && mkdir -p $shoestringNode/shoestring/bootstrap-import
+
+#bootstrapNodeから filesを取得し ~/$shoestringNode/shoestring/bootstrap-importﾃﾞｨﾚｸﾄﾘに格納
+cd $shoestringNode/shoestring/bootstrap-import
+cp -r $bootstrapNode/target/nodes/node/votingkeys .
+cp $bootstrapNode/target/nodes/node/server-config/resources/config-harvesting.properties .
+cp $bootstrapNode/target/nodes/node/cert/node.key.pem .
+cp $bootstrapNode/target/nodes/node/data/harvesters.dat .
+
+#~/shoestringNode/shoestring/bootstrap-importの内容を表示
+ls
+
+#shoestring.iniの [imports]各 pathを定義
+harvester=$shoestringNode/shoestring/bootstrap-import/config-harvesting.properties
+voter=$shoestringNode/shoestring/bootstrap-import/votingkeys
+nodekey=$shoestringNode/shoestring/bootstrap-import/node.key.pem
+
+#rolesの値に Votingが無い場合は、voterの pathを空にする
+if ! echo "$roles" | grep -q "Voting"; then
+  voter="" && features='API|HARVESTER'
+else
+  features='API|HARVESTER|VOTER'
+fi
+echo 'features: '$features
+
+#shoestring.iniの [imports]各 pathを表示
+echo 'harvester: '$harvester
+echo 'voter: '$voter
+echo 'nodekey: '$nodekey
+
+#mainAccountの導入
+cp $bootstrapNode/target/addresses.yml .
+symbol-bootstrap decrypt --source addresses.yml --destination decrypted_addresses.yml
+mainAccount=`awk '/main/ {getline; print}' decrypted_addresses.yml|sed 's/privateKey: //g'|sed 's/ //g'`
+echo '\e[33mmainAccount''s privateKey: '$mainAccount
+
+#transportAccount/remoteAccount/vrfAccountを記録、作成した shoestringNoteとの比較に使用する
+transportAccount=`awk '/transport/ {getline; print}' decrypted_addresses.yml|sed 's/privateKey: //g'|sed 's/ //g'`
+remoteAccount=`awk '/remote/ {getline; print}' decrypted_addresses.yml|sed 's/privateKey: //g'|sed 's/ //g'`
+vrfAccount=`awk '/vrf/ {getline; print}' decrypted_addresses.yml|sed 's/privateKey: //g'|sed 's/ //g'`
+
+#mainAccountの秘密鍵が取得出来なかったら scriptを停止させる
+if [ -z "$mainAccount" ]; then
+  echo '\e[33mmainAccountの秘密鍵が取得出来ませんでした。作業を中止します。'
+  exit 1
+fi
+
+#続きに行く ﾒｯｾｰｼﾞを表示
+echo '\e[33mbootstrapNodeの情報が取得出来ました。作業を続行します。'
+echo 'mainAccountの file ''ca.key.pem''を作成します。パスワードを入力し、確認の為に再度入力して下さい。\e[0m'
+
+#mainAccountに記述されている秘密鍵から ca.key.pemを生成
+echo $mainAccount > mainAccountPrivateKey
+python -m shoestring pemtool --output $shoestringNode/ca.key.pem --input mainAccountPrivateKey --ask-pass
+ 
+#shoestring.iniを作成する為に shoestringNode/shoestringへ入る
+cd $shoestringNode/shoestring
+
+#testnet用の shoestring.iniを作成
+cat <<EOF > testnet-shoestring.sample
+[network]
+
+name = testnet
+identifier = 152
+epochAdjustment = 1667250467
+generationHashSeed = 49D6E1CE276A85B70EAFE52349AACCA389302E7A9754BCF1221E79494FC665A4
+
+[images]
+
+client = symbolplatform/symbol-server:gcc-1.0.3.9
+rest = symbolplatform/symbol-rest:2.5.1
+mongo = mongo:7.0.23
+
+[services]
+
+nodewatch = https://nodewatch.symbol.tools/testnet
+
+[transaction]
+
+feeMultiplier = 200
+timeoutHours = 1
+minCosignaturesCount = 0
+hashLockDuration = 1440
+currencyMosaicId = 0x72C0212E67A08BCE
+lockedFundsPerAggregate = 10000000
+
+[imports]
+
+harvester = $harvester
+voter = $voter
+nodeKey = $nodekey
+
+[node]
+
+features = $features
+userId = 1000
+groupId = 1000
+caPassword =
+apiHttps = false
+lightApi = False
+
+caCommonName = CA $friendlyName
+nodeCommonName = $friendlyName $host
+
+EOF
+
+#mainnet用の shoestring.iniを作成
+cat <<EOF > mainnet-shoestring.sample
+[network]
+
+name = mainnet
+identifier = 104
+epochAdjustment = 1615853185
+generationHashSeed = 57F7DA205008026C776CB6AED843393F04CD458E0AA2D9F1D5F31A402072B2D6
+
+[images]
+
+client = symbolplatform/symbol-server:gcc-1.0.3.9
+rest = symbolplatform/symbol-rest:2.5.1
+mongo = mongo:7.0.23
+
+[services]
+
+nodewatch = https://nodewatch.symbol.tools
+
+[transaction]
+
+feeMultiplier = 200
+timeoutHours = 1
+minCosignaturesCount = 0
+hashLockDuration = 1440
+currencyMosaicId = 0x6BED913FA20223F8
+lockedFundsPerAggregate = 10000000
+
+[imports]
+
+harvester = $harvester
+voter = $voter
+nodeKey = $nodekey
+
+[node]
+
+features = $features
+userId = 1000
+groupId = 1000
+caPassword =
+apiHttps = true
+lightApi = false
+
+caCommonName = CA $friendlyName
+nodeCommonName = $friendlyName $host
+
+EOF
+
+#identifierの値が	testnetなら testnet-shoestring.sampleを採用
+#			mainnetなら mainnet-shoestring.sampleを採用
+#			shoestring.iniに file名を変更し、*sampleを削除
+if [ "$identifier" = "testnet" ]; then
+  mv testnet-shoestring.sample shoestring.ini && package=sai
+elif [ "$identifier" = "mainnet" ]; then
+  mv mainnet-shoestring.sample shoestring.ini && package=mainnet
+fi
+rm -f *sample
+
+#overrides.iniを作成
+cat <<EOF > overrides.ini
+[user.account]
+enableDelegatedHarvestersAutoDetection = true
+
+[harvesting.harvesting]
+maxUnlockedAccounts = $maxUnlockedAccounts
+beneficiaryAddress = $beneficiaryAddress
+
+[node.node]
+minFeeMultiplier = 100
+
+[node.localnode]
+host = $host
+friendlyName = $friendlyName
+
+EOF
+
+#shoestringNodeをセットアップ
+echo '\e[33mnodeをセットアップします。'
+echo '作成に使用する package: '$package
+
+cd $shoestringNode
+echo '次に停止した時に、パスワードを３回入力して下さい\e[0m'
+python3 -m shoestring setup --ca-key-path ca.key.pem --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd) --package $package
+
+#nodeのセットアップの終了
+echo '\e[33mnodeのセットアップが完了しました。\e[33m'
+echo $HOME'/shoestringNodeに nodeを作成しました。'
+
+#shoestringNodeの mainAccount/transportAccount/remoteAccount/vrfAccountを記録
+shoestringMainAccount=`openssl pkey -in ca.key.pem -noout -text|sed 's/://g'|sed -n 3,5p|sed 's/    //g'|sed -z 's/\n//g'`
+shoestringTransportAccount=`openssl pkey -in keys/cert/node.key.pem -noout -text|sed 's/://g'|sed -n 3,5p|sed 's/    //g'|sed -z 's/\n//g'`
+shoestringRemoteAccount=`openssl pkey -in keys/remote.pem -noout -text|sed 's/://g'|sed -n 3,5p|sed 's/    //g'|sed -z 's/\n//g'`
+shoestringVrfAccount=`openssl pkey -in keys/vrf.pem -noout -text|sed 's/://g'|sed -n 3,5p|sed 's/    //g'|sed -z 's/\n//g'`
+
+#取得した文字列を小文字から大文字に変換
+shoestringMainAccount=$(echo "$shoestringMainAccount" | tr '[:lower:]' '[:upper:]')
+shoestringTransportAccount=$(echo "$shoestringTransportAccount" | tr '[:lower:]' '[:upper:]')
+shoestringRemoteAccount=$(echo "$shoestringRemoteAccount" | tr '[:lower:]' '[:upper:]')
+shoestringVrfAccount=$(echo "$shoestringVrfAccount" | tr '[:lower:]' '[:upper:]')
+
+#bootstrapNodeと shoestringNodeとの秘密鍵の比較で、成功/失敗を判定する。
+if [ "$mainAccount" = "$shoestringMainAccount" ] &&
+   [ "$transportAccount" = "$shoestringTransportAccount" ] &&
+   [ "$remoteAccount" = "$shoestringRemoteAccount" ] &&
+   [ "$vrfAccount" = "$shoestringVrfAccount" ]; then
+
+  echo "\e[33mbootstrapNodeと shoestringNodeのアカウントが同一な事を確認出来ました。"
+  echo "変換作業を終了します。\e[0m"
+
+else
+  echo "\e[31mbootstrapNodeと shoestringNodeのアカウントに相違があります。"
+  echo "もう一度ツールを実行して下さい。\e[0m"
+fi
+
+echo $mainAccount
+echo $shoestringMainAccount
+echo
+echo $transportAccount
+echo $shoestringTransportAccount
+echo
+echo $remoteAccount
+echo $shoestringRemoteAccount
+echo
+echo $vrfAccount
+echo $shoestringVrfAccount
+echo
