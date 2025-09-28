@@ -2,7 +2,7 @@
 これは、symbol-bootstrapで作成されている symbolNodeを、  
 shoestringNodeに（ある程度）変換する shellscriptです。  
 **※ symbol-shoestring0.2.2のインストールが必須です。**  
-**※target/addresses.ymlに、全ての nodeAccountの秘密鍵が記述されている事が前提です。**  
+**※ target/addresses.ymlに、全ての nodeAccountの秘密鍵が記述されている事が前提です。**  
   
 bootstrapNode側の設定  
 main/transport/remote/vrfの**4つの nodeAccount**  
