@@ -19,14 +19,15 @@ cd [bootstrapNodeの作業ディレクトリ]
 sh ~/btos  
 この後は、質問と指示が出ますので、それに従って下さい。  
   
-$HOME/shoestringNodeディレクトリが作成されて、その中に shoestringで作成された nodeが作成されます。　　
-　　
+$HOME/shoestringNodeディレクトリが作成されて、その中に shoestringで作成された nodeが作成されます。  
+  
 cd ~/shoestringNode  
 docker system prune  
 （y/N）か聞いてくるので y  
   
 nodeの起動  
 docker-compose up -d  
-これで、shoestringNodeが起動します。  
+これで、shoestringNodeが起動します。
+  
 nodeの停止  
 docker-compose down  
