@@ -7,6 +7,12 @@ pip install symbol-shoestringでインストールした symbol-shoestringを
   
 ----
 # 使用方法
+※symbol-shoestringをアップデートした時は、  
+'symbol-shoestringの改変を行います。よろしいですか？ y か n を入力して[ENTER]を押して下さい。(y/N) :y'  
+の後の
+**Ⓑ  symbol-shoestring のバックアップを作成する。** を最初に行ってから、再度change4を実行して下さい。
+アップデート前のverに戻っちゃいます。
+  
 **cange4**は、symbol-shoestringがインストールされている python環境に入ってから実行して下さい。  
   
 $HOMEで、  
