@@ -13,6 +13,7 @@ pip install symbol-shoestringでインストールした symbol-shoestringを
 **Ⓑ  symbol-shoestring のバックアップを作成する。** を最初に行ってから、再度change4を実行して下さい。
 これやらないとchange4を実行するとアップデート前のverに戻っちゃいます。
   
+  
 **cange4**は、symbol-shoestringがインストールされている python環境に入ってから実行して下さい。  
   
 $HOMEで、  
