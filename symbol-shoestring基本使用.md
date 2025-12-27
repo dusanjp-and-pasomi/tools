@@ -155,9 +155,9 @@ python3 -m shoestring
   
 * 必要なファイル  
 1.	ca.key.pem	（mainAccountの秘密鍵を保存している。）　　
-3.	shoestring.ini	（nodeの基本設定。個別設定である roles、https使用の可否、CAの設定も含む。）  
-4.	overrides.ini	（nodeの個別の設定）  
-5.	rest_overrides.json  
+2.	shoestring.ini	（nodeの基本設定。個別設定である roles、https使用の可否、CAの設定も含む。）  
+3.	overrides.ini	（nodeの個別の設定）  
+(4).	rest_overrides.json  
 ※restに変更を付与する時に必要。これが無くても nodeは作成出来る。  
   
   
