@@ -157,7 +157,8 @@ python3 -m shoestring
 1.	ca.key.pem  
 2.	shoestring.ini  
 3.	overrides.ini  
-4.　rest_overrides.json  
+4.　rest_overrides.json
+
 ※restに変更を付与する時に必要。これが無くても nodeは作成出来る。  
   
   
