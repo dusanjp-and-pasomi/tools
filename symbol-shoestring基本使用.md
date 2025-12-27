@@ -294,10 +294,10 @@ overrides.iniは、userconfig/resourcesにある configファイルへの上書�
 [harvesting]  
 delegatePrioritizationPolicy = Importanceを Ageにしたい場合  
   
-[harvesting.harvestting]  
+[harvesting.harvesting]  
 delegatePrioritizationPolicy = Age  
 とする。  
-※[harvesting.harvestting]はすでに記述されているので、別個に追記すると、  
+※[harvesting.harvesting]はすでに記述されているので、別個に追記すると、  
 section 'harvesting.harvesting' already existsとなり、エラーになるので、  
 ```
 [harvesting.harvesting]
