@@ -287,17 +287,17 @@ friendlyName = myNodeName
 ```
 ーー以上は編集後の例ーー  
 
-overrides.iniは、userconfig/resourcesにある configファイルへの上書き内容を記述するものだが、
-以上に書いた設定以外にも指定が可能。
-指定方法は、
-例：config-harvesting.properties内の設定の
-delegatePrioritizationPolicy = Importanceを Ageにしたい場合
-
-[harvesting.harvestting]
-delegatePrioritizationPolicy = Age
-とする。
-※[harvesting.harvestting]はすでに記述されているので、別個に追記すると、
-section 'harvesting.harvesting' already existsとなり、エラーになるので、
+overrides.iniは、userconfig/resourcesにある configファイルへの上書き内容を記述するものだが、  
+以上に書いた設定以外にも指定が可能。  
+指定方法は、  
+例：config-harvesting.properties内の設定の  
+delegatePrioritizationPolicy = Importanceを Ageにしたい場合  
+  
+[harvesting.harvestting]  
+delegatePrioritizationPolicy = Age  
+とする。  
+※[harvesting.harvestting]はすでに記述されているので、別個に追記すると、  
+section 'harvesting.harvesting' already existsとなり、エラーになるので、  
 ```
 [harvesting.harvesting]
 maxUnlockedAccounts = 5
@@ -306,14 +306,14 @@ beneficiaryAddress =
 [harvesting.harvesting]
 delegatePrioritizationPolicy = Age
 ```
-とはせずに、
+とはせずに、  
 ```
 [harvesting.harvesting]
 maxUnlockedAccounts = 5
 beneficiaryAddress = 
 delegatePrioritizationPolicy = Age
 ```
-以上の様に指定configファイルの項目にまとめて記述する。
+以上の様に指定したconfigファイルの項目にまとめて記述する。  
   
 **bootstrapNodeからの (mainAccount以外の)nodeAccountの導入方法**
 * symbol-bootstrapで作成した nodeから、transport/remote/vrf（votingnodeの場合は、votingKeyも）を インポートする際の命令  
