@@ -291,7 +291,7 @@ overrides.iniは、userconfig/resourcesにある configファイルへの上書�
 以上に書いた設定以外にも指定が可能。  
 指定方法は、  
 例：config-harvesting.properties内の設定の  
-[harvesting]
+[harvesting]  
 delegatePrioritizationPolicy = Importanceを Ageにしたい場合  
   
 [harvesting.harvestting]  
