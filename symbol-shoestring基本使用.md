@@ -287,6 +287,7 @@ friendlyName = myNodeName
 ```
 ーー以上は編集後の例ーー  
   
+**bootstrapNodeからの (mainAccount以外の)nodeAccountの導入方法**
 * symbol-bootstrapで作成した nodeから、transport/remote/vrf（votingnodeの場合は、votingKeyも）を インポートする際の命令  
 python3 -m shoestring import-bootstrap --config shoestring/shoestring.ini --bootstrap [bootstrapで建てた nodeの targetのパス] --include-node-key
   
