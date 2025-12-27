@@ -290,6 +290,17 @@ friendlyName = myNodeName
 * symbol-bootstrapで作成した nodeから、transport/remote/vrf（votingnodeの場合は、votingKeyも）を インポートする際の命令  
 python3 -m shoestring import-bootstrap --config shoestring/shoestring.ini --bootstrap [bootstrapで建てた nodeの targetのパス] --include-node-key  
   
+shoestring/bootstrap-importディレクトリが作成され、この中に
+--bootstrapで指定した targetの  
+nodes/node/server-config/resources/config-harvesting.properties（remoteAccoountと vrfAccount）  
+nodes/node/cert/node.key.pem（remoteAccount）  
+がコピーされ、このパスが shoestring/shoestring.iniに  
+[imports]  
+  
+harvester = 作業ディレクトリの絶対パス/shoestring/bootstrap-import/config-harvesting.properties  
+voter = 作業ディレクトリの絶対パス/shoestring/bootstrap-import/votingkeys  
+nodeKey = 作業ディレクトリの絶対パス/shoestring/bootstrap-import/node.key.pem  
+として記述される。  
 ----
 * nodeをセットアップする。  
 python3 -m shoestring setup --ca-key-path ca.key.pem --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd)  
