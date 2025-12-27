@@ -169,7 +169,7 @@ cd symbolnode
   
 ----
 * 1.ca.key.pemを作成する。  
-mainaccountを作成する。  
+mainAccountを作成する。  
 python3 -m shoestring pemtool --output ca.key.pem --ask-pass  
 秘密鍵を聞かれるので、秘密鍵を入力する。ca.key.pemが作成される。  
   
@@ -295,11 +295,13 @@ shoestring/bootstrap-importディレクトリが作成され、この中に
 nodes/node/server-config/resources/config-harvesting.properties（remoteAccoountと vrfAccount）  
 nodes/node/cert/node.key.pem（remoteAccount）  
 がコピーされ、このパスが shoestring/shoestring.iniに  
+```
 [imports]  
   
 harvester = 作業ディレクトリの絶対パス/shoestring/bootstrap-import/config-harvesting.properties  
 voter = 作業ディレクトリの絶対パス/shoestring/bootstrap-import/votingkeys  
 nodeKey = 作業ディレクトリの絶対パス/shoestring/bootstrap-import/node.key.pem  
+```
 として記述される。
 
 ----
