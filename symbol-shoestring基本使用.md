@@ -316,9 +316,23 @@ delegatePrioritizationPolicy = Age
 ```
 以上の様に指定したconfigファイルの項目にまとめて記述する。  
   
+*4.rest_overrides.json  
+このファイルは通常は必要ありません。「特に restを変更したい場合」に作成します。  
+このファイルが適用されると、userconfig/rest.jsonの内容が変わります。
+例：pageSizeMaxを 100から 2000に変更したい場合  
+vi shoestring/rest_overrides.json  
+```
+{
+        "db": {
+                "pageSizeMax": 2000
+        }
+}
+```
+
 **bootstrapNodeからの (mainAccount以外の)nodeAccountの導入方法**
 * symbol-bootstrapで作成した nodeから、transport/remote/vrf（votingnodeの場合は、votingKeyも）を インポートする際の命令  
 python3 -m shoestring import-bootstrap --config shoestring/shoestring.ini --bootstrap [bootstrapで建てた nodeの targetのパス] --include-node-key
+※4.で作成した rest_overrides.jsonを適用させたい場合は、この文の後に、` --rest-overrides shoestring/rest_overrides.json`を付ける。
   
 shoestring/bootstrap-importディレクトリが作成され、この中に
 --bootstrapで指定した targetの  
