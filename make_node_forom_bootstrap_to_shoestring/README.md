@@ -14,7 +14,7 @@ main/transport/remote/vrfの**4つの nodeAccount**
   
 # 使用方法
 $HOMEで、  
-`wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/make_node_forom_bootstrap_to_shoestring/btos`  
+`wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/make_node_from_bootstrap_to_shoestring/btos`  
   
 bootstrapNodeの作業ディレクトリに移動して下さい。  
 cd [bootstrapNodeの作業ディレクトリ]  
