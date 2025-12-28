@@ -316,7 +316,7 @@ delegatePrioritizationPolicy = Age
 ```
 以上の様に指定したconfigファイルの項目にまとめて記述する。  
   
-*4.rest_overrides.json  
+* 4.rest_overrides.jsonを作成する。  
 このファイルは通常は必要ありません。「特に restを変更したい場合」に作成します。  
 このファイルが適用されると、userconfig/rest.jsonの内容が変わります。
 例：pageSizeMaxを 100から 2000に変更したい場合  
