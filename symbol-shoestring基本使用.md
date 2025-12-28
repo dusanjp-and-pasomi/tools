@@ -318,7 +318,7 @@ delegatePrioritizationPolicy = Age
   
 * 4.rest_overrides.jsonを作成する。  
 このファイルは通常は必要ありません。「特に restを変更したい場合」に作成します。  
-このファイルが適用されると、userconfig/rest.jsonの内容が変わります。
+このファイルが適用されると、userconfig/rest.jsonの内容が変わります。　　
 例：pageSizeMaxを 100から 2000に変更したい場合  
 vi shoestring/rest_overrides.json  
 ```
@@ -331,8 +331,7 @@ vi shoestring/rest_overrides.json
 
 **bootstrapNodeからの (mainAccount以外の)nodeAccountの導入方法**
 * symbol-bootstrapで作成した nodeから、transport/remote/vrf（votingnodeの場合は、votingKeyも）を インポートする際の命令  
-python3 -m shoestring import-bootstrap --config shoestring/shoestring.ini --bootstrap [bootstrapで建てた nodeの targetのパス] --include-node-key
-※4.で作成した rest_overrides.jsonを適用させたい場合は、この文の後に、` --rest-overrides shoestring/rest_overrides.json`を付ける。
+python3 -m shoestring import-bootstrap --config shoestring/shoestring.ini --bootstrap [bootstrapで建てた nodeの targetのパス] --include-node-key   
   
 shoestring/bootstrap-importディレクトリが作成され、この中に
 --bootstrapで指定した targetの  
@@ -351,8 +350,8 @@ nodeKey = 作業ディレクトリの絶対パス/shoestring/bootstrap-import/no
 ----
 * nodeをセットアップする。  
 python3 -m shoestring setup --ca-key-path ca.key.pem --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd)  
-※testnetの場合は、この後に --package saiを付ける。  
-※別に作成した rest_overrides.jsonを反映させる場合は、--rest-overrides [rest_overrides.jsonのパス]を付ける。  
+※testnetの場合は、この後に` --package sai`を付ける。  
+※4.で作成した rest_overrides.jsonを適用させたい場合は、この文の後に、` --rest-overrides shoestring/rest_overrides.json`を付ける。 
   
 # 【⑤　nodeの 操作及び動作確認】
   
