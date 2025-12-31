@@ -6,7 +6,7 @@ shoestringNodeの nodeAccountと votingKeyを同じくした bootstrapNodeを作
   
 ---
 HOMEディレクトリで  
-wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/make_bootstrapNode_from_shoestringNode/mu  
+`wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/make_bootstrapNode_from_shoestringNode/mu`  
 shellscript 'mu'がダウンロードされます。  
   
 shoestringNodeの作業ディレクトリ内で  
