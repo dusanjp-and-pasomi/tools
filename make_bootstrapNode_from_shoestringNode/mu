@@ -1,0 +1,132 @@
+#!/bin/bash
+
+#bootstrapNode用の ﾃﾞｨﾚｸﾄﾘを作成（votingKey格納場所も作成する）
+rm -rf unlink
+mkdir -p unlink/target/nodes/node/votingkeys
+
+#identifierと featuresを判別、presetと assemblyに代入
+
+CONFIG_FILE="shoestring/shoestring.ini"
+
+# ファイル存在チェック
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "Error: $CONFIG_FILE not found"
+    exit 1
+fi
+
+# 変数の初期化
+preset=""
+assembly=""
+features=""
+light_api=""
+
+# 必要な値を取得
+identifier=$(grep "^identifier[[:space:]]*=" "$CONFIG_FILE" | cut -d'=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+features=$(grep "^features[[:space:]]*=" "$CONFIG_FILE" | cut -d'=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+light_api=$(grep "^lightApi[[:space:]]*=" "$CONFIG_FILE" | cut -d'=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+# presetの設定
+case "$identifier" in
+    "104") preset="mainnet" ;;
+    "152") preset="testnet" ;;
+esac
+
+# assemblyの設定
+has_api=false
+has_harvester=false
+
+# featuresをパイプ区切りでチェック（スペースを考慮）
+# パイプとスペースを正規化して処理
+normalized_features=$(echo "$features" | sed 's/[[:space:]]*|[[:space:]]*/|/g')
+if echo "$normalized_features" | grep -E "(^|\|)API(\||$)" >/dev/null; then
+    has_api=true
+fi
+if echo "$normalized_features" | grep -E "(^|\|)HARVESTER(\||$)" >/dev/null; then
+    has_harvester=true
+fi
+
+# lightApiを小文字に変換してtrue/falseを統一
+normalized_light_api=$(echo "$light_api" | tr '[:upper:]' '[:lower:]')
+
+# 条件に基づくassemblyの代入
+if [ "$has_api" = true ] && [ "$has_harvester" = true ]; then
+    if [ "$normalized_light_api" = "false" ]; then
+        assembly="dual"
+    elif [ "$normalized_light_api" = "true" ]; then
+        assembly="peer"
+    fi
+elif [ "$has_api" = false ] && [ "$has_harvester" = true ]; then
+    assembly="peer"
+elif [ "$has_api" = true ] && [ "$has_harvester" = false ]; then
+    assembly="api"
+fi
+
+# 結果の出力
+echo "features: $features"
+echo "lightApi: $light_api"
+echo
+echo "preset: $preset"
+echo "assembly: $assembly"
+
+#shoestringNodeの nodeAccountsの秘密鍵記述 file "a"の作成
+echo "main" > a
+openssl pkey -in ca.key.pem -noout -text|sed 's/://g'|sed -n 3,5p|sed 's/    //g'|sed -z 's/\n//g' >> a
+echo "\n" >> a
+echo "transport" >> a
+openssl pkey -in keys/cert/node.key.pem -noout -text|sed 's/://g'|sed -n 3,5p|sed 's/    //g'|sed -z 's/\n//g' >> a
+echo "\n" >> a
+echo "remote" >> a
+openssl pkey -in keys/remote.pem -noout -text|sed 's/://g'|sed -n 3,5p|sed 's/    //g'|sed -z 's/\n//g' >> a
+echo "\n" >> a
+echo "vrf" >> a
+openssl pkey -in keys/vrf.pem -noout -text|sed 's/://g'|sed -n 3,5p|sed 's/    //g'|sed -z 's/\n//g' >> a
+echo "\n" >> a
+
+#shoestringNodeの nodeAccountsを記述した file "a"の内容を表示
+echo "This is shoestringNode's nodeAccounts privateKeys."
+cat a
+
+#shoestringNodeが votingかの判別
+a=`ls keys/voting/`
+echo $a
+if [ -z $a ]; then
+        voting="false"
+        echo "This shoestringNode is nonVoting."
+else
+        voting="true"
+        echo "This shoestringNode is Voting."
+fi
+echo $voting
+
+#秘密鍵記述 file "a"を使用して ｶｽﾀﾑﾌﾟﾘｾｯﾄ "unlink"の作成
+main=`sed -n 2p a`
+transport=`sed -n 5p a`
+remote=`sed -n 8p a`
+vrf=`sed -n 11p a`
+cd unlink
+cat <<EOF > unlink
+assembly: $assembly
+preset: $preset
+
+privateKeySecurityMode: ENCRYPT
+nodes:
+    -
+        host: unlink
+        friendlyName: unlink
+        voting: $voting
+        mainPrivateKey: $main 
+        transportPrivateKey: $transport
+        remotePrivateKey: $remote
+        vrfPrivateKey: $vrf
+EOF
+
+#shoestringNodeから votingKeyを copy（nonVotingの場合は空）
+cp ../keys/voting/* target/nodes/node/votingkeys/
+
+#symbol-bootstrapを使用して target/addresses.ymlと target/preset.ymlを作成
+symbol-bootstrap config -c unlink
+symbol-bootstrap compose
+
+#addresses.ymlを表示
+echo "This is bootstrapNode's target/addresses.yml."
+cat target/addresses.yml
