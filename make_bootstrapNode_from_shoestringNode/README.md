@@ -1,3 +1,4 @@
+* mu
 shoestringNodeから bootstrapNodeを作成します。  
 これは、shoestringでは、まだ link作業が symbol-bootstrapに比べてやりにくい、また、不備が残っている様なので、  
 shoestringNodeの nodeAccountと votingKeyを同じくした bootstrapNodeを作成し、  
