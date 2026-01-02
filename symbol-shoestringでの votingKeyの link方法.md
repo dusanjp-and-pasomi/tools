@@ -1,4 +1,4 @@
-マルチシグで無い場合  
+* マルチシグで無い場合  
 ① votingKeyを生成する。  
 `python3 -m shoestring renew-voting-keys --config shoestring/shoestring.ini --directory $(pwd)`
 renew_voting_keys_transaction.datが生成される。  
