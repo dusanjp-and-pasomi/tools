@@ -84,7 +84,7 @@ lockedFundsPerAggregate = 10000000
 この時ファンドロックが掛かるまでは、作業を続行してはいけません。  
   
 **⑧ (c1.key.pem)のアカウントにファンドロックが掛かった事を確認出来たら、  
-署名された renew_voting_keys_transaction.datを共同署名者のアカウント(c1.key.pem)でネットワークにアナウンスする。**　 
+署名された renew_voting_keys_transaction.datを共同署名者のアカウント(c1.key.pem)でネットワークにアナウンスする。**  
 `python3 -m shoestring announce-transaction --config shoestring/shoestring.ini --transaction renew_voting_keys_transaction.dat`
   
 **⑨ symbol-desktop-walletで、(c1.key.pem)では無いもう片方の共同署名者のアカウントの Home→Historyを開き、アグリデートボンデッドが来ている事を確認する。**  
