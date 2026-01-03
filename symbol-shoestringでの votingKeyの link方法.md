@@ -45,7 +45,7 @@ lockedFundsPerAggregate = 10000000
 ⑥ symbol explorerで mainAccountを開き、votingKeyがリンクされている事を確認する。  
   
 # 最小共同署名者が 2の場合  
-① votingKeyを生成する。
+① votingKeyを生成する。  
 `python3 -m shoestring renew-voting-keys --config shoestring/shoestring.ini --directory $(pwd)`
   
 ② shoestring/shoestring.iniの最小共同署名者数の設定をアップデートする。  
