@@ -1,3 +1,5 @@
+※注意　signer命令時に使用する pemファイルにパスワードが掛かっていると、失敗します。
+  
 # マルチシグで無い場合  
 **① votingKeyを生成する。**  
 `python3 -m shoestring renew-voting-keys --config shoestring/shoestring.ini --directory $(pwd)`
