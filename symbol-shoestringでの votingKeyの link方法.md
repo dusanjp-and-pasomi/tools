@@ -13,10 +13,7 @@ renew_voting_keys_transaction.datが生成される。
 ④ symbol explorerで mainAccountを開き、votingKeyがリンクされている事を確認する。  
   
 # 最小共同署名者が 1の場合  
-① votingKeyを生成する。  
-`python3 -m shoestring renew-voting-keys --config shoestring/shoestring.ini --directory $(pwd)`
-  
-② shoestring/shoestring.iniの最小共同署名者数の設定をアップデートする。  
+① shoestring/shoestring.iniの最小共同署名者数の設定をアップデートする。  
 `python3 -m shoestring min-cosignatures-count --config shoestring/shoestring.ini --ca-key-path ca.key.pem --update`
 
 shoestring/shoestring.iniの  
@@ -30,6 +27,9 @@ hashLockDuration = 1440
 currencyMosaicId = 0x72C0212E67A08BCE
 lockedFundsPerAggregate = 10000000
 ```
+  
+② votingKeyを生成する。  
+`python3 -m shoestring renew-voting-keys --config shoestring/shoestring.ini --directory $(pwd)`
   
 ③ 共同署名者の秘密鍵で c1.key.pemを作成する。  
 `python3 -m shoestring pemtool --output c1.key.pem`
@@ -45,10 +45,7 @@ lockedFundsPerAggregate = 10000000
 ⑥ symbol explorerで mainAccountを開き、votingKeyがリンクされている事を確認する。  
   
 # 最小共同署名者が 2の場合  
-① votingKeyを生成する。  
-`python3 -m shoestring renew-voting-keys --config shoestring/shoestring.ini --directory $(pwd)`
-  
-② shoestring/shoestring.iniの最小共同署名者数の設定をアップデートする。  
+① shoestring/shoestring.iniの最小共同署名者数の設定をアップデートする。  
 `python3 -m shoestring min-cosignatures-count --config shoestring/shoestring.ini --ca-key-path ca.key.pem --update`
 
 shoestring/shoestring.iniの  
@@ -62,6 +59,9 @@ hashLockDuration = 1440
 currencyMosaicId = 0x72C0212E67A08BCE
 lockedFundsPerAggregate = 10000000
 ```
+  
+② votingKeyを生成する。  
+`python3 -m shoestring renew-voting-keys --config shoestring/shoestring.ini --directory $(pwd)`
   
 ③ 共同署名者 2つの内どちらかの秘密鍵で c1.key.pemを作成する。  
 `python3 -m shoestring pemtool --output c1.key.pem`
