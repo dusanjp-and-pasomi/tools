@@ -2,7 +2,7 @@
   
 例：pemファイルに "abcde" とパスワードが掛かっている時  
 signer命令を実行する前に、  
-shoestring.iniの[node]項目の caPasswordの行を
+shoestring.iniの[node]項目の caPasswordの行を  
 `caPassword = pass:abcde`  
 と変更して下さい。  
 link作業が終わった後は、ここは、  
