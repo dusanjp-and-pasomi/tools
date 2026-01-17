@@ -1,4 +1,12 @@
-※注意　signer命令時に使用する pemファイルにパスワードが掛かっていると、失敗します。
+※注意　signer命令時に使用する pemファイルにパスワードが掛かっていると、失敗します。  
+例：pemファイルに "abcde" とパスワードが掛かっている時  
+signer命令を実行する前に、  
+shoestring.iniの[node]項目の caPasswordの行を
+`caPassword = pass:abcde`  
+と変更して下さい。  
+link作業が終わった後は、ここは、  
+`caPassword = `  
+に戻しておいた方が良いかと思われます。  
   
 # マルチシグで無い場合  
 **① votingKeyを生成する。**  
