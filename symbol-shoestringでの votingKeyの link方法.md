@@ -1,4 +1,5 @@
-※注意　signer命令時に使用する pemファイルにパスワードが掛かっていると、失敗します。  
+※注意　signer命令時に使用する pemファイルにパスワードが掛かっている場合は、shoestring.iniの修正が必要です。  
+  
 例：pemファイルに "abcde" とパスワードが掛かっている時  
 signer命令を実行する前に、  
 shoestring.iniの[node]項目の caPasswordの行を
