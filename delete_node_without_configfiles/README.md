@@ -1,4 +1,4 @@
-#shellscript "reset"  
+# shellscript "reset"  
 
 setup命令や upgrade命令で 間違った shoestringNodeを作っちゃった時や、やらかして壊しちゃった時に、  
 nodeを消したい時に使います。  
