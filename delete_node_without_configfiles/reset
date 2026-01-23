@@ -1,0 +1,18 @@
+#!/bin/bash
+rm -rf data
+rm -rf dbdata
+rm -rf docker-compose.yaml
+rm -rf docker-compose-recovery.yaml
+rm -rf keys
+rm -rf logs
+rm -rf mongo
+rm -rf rest-cache
+rm -rf seed
+rm -rf startup
+rm -rf userconfig
+rm -rf linking_transaction.dat
+rm -rf unlink
+rm -rf a
+rm -rf renew_voting_keys_transaction.dat
+rm -rf docker-compose-recovery.yaml
+sudo chown -R 1000 https-proxy && rm -rf https-proxy
