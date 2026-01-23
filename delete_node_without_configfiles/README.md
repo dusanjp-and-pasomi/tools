@@ -7,7 +7,7 @@ nodeを再構築する時は、setup命令から始められます。
 ※ transport,remote,vrf等の accountの指定ファイルが無い場合は、  
 mainAccount(ca.key.pem)以外の accountは変わってしまいますが...  
   
-# 使い方  
+## 使い方  
 HOMEディレクトリで、
 ```
 wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/delete_node_without_configfiles/reset
