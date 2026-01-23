@@ -1,10 +1,10 @@
-## reset  
+#shellscript "reset"  
 
-setup命令や upgrade命令で 間違った shoestringNodeを作っちゃった時や、やらかして壊しちゃって  
+setup命令や upgrade命令で 間違った shoestringNodeを作っちゃった時や、やらかして壊しちゃった時に、  
 nodeを消したい時に使います。  
 ca.key.pemや、shoestring.iniや overrides.ini等が入っている shoestringディレクトリは消しませんので、  
 nodeを再構築する時は、setup命令から始められます。  
-※ transport,remote,vrf等の accountの指定ファイルが無い場合は、　　
+※ transport,remote,vrf等の accountの指定ファイルが無い場合は、  
 mainAccount(ca.key.pem)以外の accountは変わってしまいますが...  
   
 # 使い方  
@@ -16,7 +16,7 @@ shellscript "reset"がダウンロードされます。
   
 次に、nodeの作業ディレクトリに入ってから、
 ```
-sh reset
+sh ~/reset
 ```
 とやります。  
 nodeを構成するファイルやディレクトリが綺麗サッパリ削除されます。  
