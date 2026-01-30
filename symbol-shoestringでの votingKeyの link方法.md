@@ -22,7 +22,7 @@ renew_voting_keys_transaction.datが生成される。
 `python3 -m shoestring signer --config shoestring/shoestring.ini --save renew_voting_keys_transaction.dat --ca-key-path ca.key.pem`
   
 **③ 署名された renew_voting_keys_transaction.datをネットワークにアナウンスする。**  
-`python3 -m shoestring announce-transaction --config shoestring/shoestring.ini --transaction renew_voting_keys_transaction.dat`
+`python3 -m shoestring announce-transaction --config shoestring/shoestring.ini --transaction renew_voting_keys_transaction.dat`  
 ※announce-transaction命令実行後に、symbol-desktop-walletの mainAccountの Home→Historyで、トランザクションを飛ばした通知が出ます。  
   
 **④ symbol explorerで mainAccountを開き、votingKeyがリンクされている事を確認する。**  
@@ -58,7 +58,7 @@ lockedFundsPerAggregate = 10000000
 `python3 -m shoestring signer --config shoestring/shoestring.ini --save renew_voting_keys_transaction.dat --ca-key-path c1.key.pem`
   
 **⑤ 署名された renew_voting_keys_transaction.datを共同署名者のアカウント(c1.key.pem)でネットワークにアナウンスする。**  
-`python3 -m shoestring announce-transaction --config shoestring/shoestring.ini --transaction renew_voting_keys_transaction.dat`
+`python3 -m shoestring announce-transaction --config shoestring/shoestring.ini --transaction renew_voting_keys_transaction.dat`  
 ※announce-transaction命令実行後に、symbol-desktop-walletの mainAccountの共同署名者の Home→Historyで、トランザクションを飛ばした通知が出ます。  
   
 **⑥ symbol explorerで mainAccountを開き、votingKeyがリンクされている事を確認する。**  
@@ -107,7 +107,7 @@ lockedFundsPerAggregate = 10000000
   
 **⑧ (c1.key.pem)のアカウントにファンドロックが掛かった事を確認出来たら、  
 署名された renew_voting_keys_transaction.datを共同署名者のアカウント(c1.key.pem)でネットワークにアナウンスする。**  
-`python3 -m shoestring announce-transaction --config shoestring/shoestring.ini --transaction renew_voting_keys_transaction.dat`
+`python3 -m shoestring announce-transaction --config shoestring/shoestring.ini --transaction renew_voting_keys_transaction.dat`  
 ※announce-transaction命令実行後に、symbol-desktop-walletの mainAccountの共同署名者の Home→Historyで、トランザクションを飛ばした通知が出ます。  
   
 **⑨ symbol-desktop-walletで、(c1.key.pem)では無いもう片方の共同署名者のアカウントの Home→Historyを開き、アグリゲートボンデッドが来ている事を確認する。**  
