@@ -101,6 +101,8 @@ lockedFundsPerAggregate = 10000000
 `python3 -m shoestring announce-transaction --config shoestring/shoestring.ini --transaction renew_voting_keys_transaction.hash_lock.dat`
 
 この時点で共同署名者の c1.key.pemのアカウントにファンドロックの生成トランザクションがアナウンスされる。  
+※announce-transaction命令実行後に、symbol-desktop-walletの mainAccountの共同署名者の Home→Historyで、トランザクションを飛ばした通知が出て、  
+ファンドロックが履歴に表示されます。  
   
 **⑦ symbol-desktop-walletの(c1.key.pem)側で、Home→Historyを開き、ファンドロックが掛かるのを待つ。**  
 この時ファンドロックが掛かるまでは、作業を続行してはいけません。  
