@@ -88,3 +88,68 @@ voter =
 nodeKey = /home/dusanjp6/tb/shoestring/addresses/node.key.pem
 
 ```
+**votingNodeの場合**  
+```
+ファイルコピー成功: ca.key.pem → shoestring/addresses/ca.key.pem
+ファイルコピー成功: userconfig/resources/config-harvesting.properties → shoestring/addresses/config-harvesting.properties
+ディレクトリコピー成功: keys/voting → shoestring/addresses/voting
+ファイルコピー成功: keys/cert/node.key.pem → shoestring/addresses/node.key.pem
+backup.txt にコピー成功したファイルのパスを記録しました
+処理完了: shoestring/addresses
+
+shoestring/addressesの内容：
+backup.txt  ca.key.pem	config-harvesting.properties  node.key.pem  voting
+
+ca.key.pemの内容：
+ED25519 Private-Key:
+priv:
+    7b:78:1d:49:fd:cd:db:42:4e:ea:3e:6e:e6:26:f7:
+    95:02:4b:e8:a2:61:ca:4d:4c:80:21:a1:d6:b9:82:
+    46:c5
+pub:
+    5f:6b:d9:57:59:23:cf:a3:bf:50:00:e6:7a:3c:fc:
+    3e:a9:ae:d9:2a:07:e7:41:fe:a3:49:e1:03:8b:93:
+    5b:5b
+
+config-harvesting.propertiesの内容：
+[harvesting]
+
+harvesterSigningPrivateKey = 80706D452CC9A9288F90FBB744D78C6A719394CBBED85FAC1144992F407428FE
+harvesterVrfPrivateKey = 05CBF8730E6648A182A6EC3CC878C22E5504D347B1337CB639B2314A164A1640
+
+enableAutoHarvesting = true
+maxUnlockedAccounts = 5
+delegatePrioritizationPolicy = Importance
+beneficiaryAddress =
+
+votingの内容：
+private_key_tree1.dat
+
+node.key.pemの内容：
+ED25519 Private-Key:
+priv:
+    60:4d:dd:df:ec:8d:89:04:12:57:79:84:d6:33:24:
+    b1:28:d6:a6:2e:6a:2b:56:20:61:d7:1c:48:cf:30:
+    6d:c3
+pub:
+    1f:91:65:3a:db:b7:7d:49:be:22:00:26:93:78:8b:
+    55:b8:86:14:41:7a:9e:fa:c4:67:f0:d7:16:a8:d2:
+    b8:6a
+
+shoestring/addresses/backup.txtの内容：
+/home/dusanjp6/tb/shoestring/addresses/ca.key.pem
+/home/dusanjp6/tb/shoestring/addresses/config-harvesting.properties
+/home/dusanjp6/tb/shoestring/addresses/voting
+/home/dusanjp6/tb/shoestring/addresses/node.key.pem
+
+
+
+shoestring/shoestring.iniの[imports]項目に下記の様に記述すると、バックアップが反映します。
+
+[imports]
+
+harvester = /home/dusanjp6/tb/shoestring/addresses/config-harvesting.properties
+voter = /home/dusanjp6/tb/shoestring/addresses/voting
+nodeKey = /home/dusanjp6/tb/shoestring/addresses/node.key.pem
+```
+
