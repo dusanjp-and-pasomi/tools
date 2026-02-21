@@ -1,0 +1,131 @@
+#!/bin/sh
+
+rm -rf shoestring/addresses 2>/dev/null
+TARGET_DIR="shoestring/addresses"
+
+mkdir -p "$TARGET_DIR"
+
+# ── パスの決定 ──
+if [ -d "keys" ] && [ -d "userconfig" ]; then
+    CA_KEY="ca.key.pem"
+    CONFIG="userconfig/resources/config-harvesting.properties"
+    VOTER="keys/voting"
+    NODE_KEY="keys/cert/node.key.pem"
+else
+    CA_KEY="ca.key.pem"
+    CONFIG="node/userconfig/resources/config-harvesting.properties"
+    VOTER="node/keys/voting"
+    NODE_KEY="node/keys/cert/node.key.pem"
+fi
+
+# ── コピー成功したパスをここに溜める（改行で連結） ──
+backup_content=""
+
+copy_and_record() {
+    src="$1"
+    dest_name="$2"   # コピー先での名前（ディレクトリの場合もこれをベースに）
+
+    if [ -e "$src" ]; then   # -e で存在チェック（ファイル/ディレクトリ両方OK）
+        dest="$TARGET_DIR/$dest_name"
+
+        if [ -d "$src" ]; then
+            # ディレクトリの場合 → 再帰コピー
+            if cp -r "$src" "$dest" 2>/dev/null; then
+                # 成功したら、ディレクトリ全体のルートパスを記録（必要に応じて）
+                backup_content="$backup_content$(pwd)/$dest
+"
+                echo "ディレクトリコピー成功: $src → $dest"
+            else
+                echo "警告: ディレクトリコピーに失敗 → $src" >&2
+            fi
+        elif [ -f "$src" ]; then
+            # ファイルの場合 → 通常コピー
+            if cp "$src" "$dest" 2>/dev/null; then
+                backup_content="$backup_content$(pwd)/$dest
+"
+                echo "ファイルコピー成功: $src → $dest"
+            else
+                echo "警告: ファイルコピーに失敗 → $src" >&2
+            fi
+        else
+            echo "注意: 特殊なファイル（デバイスなど）→ スキップ: $src" >&2
+        fi
+    else
+        echo "注意: 存在しない → $src" >&2
+    fi
+}
+
+# ── 実行 ──
+copy_and_record "$CA_KEY"   "ca.key.pem"
+copy_and_record "$CONFIG"   "config-harvesting.properties"
+copy_and_record "$VOTER"    "voting"
+copy_and_record "$NODE_KEY" "node.key.pem"
+
+# ── backup.txt 作成 ──
+BACKUP_TXT="$TARGET_DIR/backup.txt"
+
+if [ -n "$backup_content" ]; then
+    # sed を使わず、そのまま書き込み（余分な改行が入らないようにした）
+    printf '%s\n' "$backup_content" > "$BACKUP_TXT"
+    echo "backup.txt にコピー成功したファイルのパスを記録しました"
+    # 確認用に中身を表示（デバッグしたいときは有効に）
+    # cat "$BACKUP_TXT"
+else
+    echo "警告: 1つもコピーできなかったため backup.txt は作成しません" >&2
+fi
+
+echo "処理完了: $TARGET_DIR"
+
+echo
+echo "shoestring/addressesの内容："
+ls shoestring/addresses
+echo
+echo "ca.key.pemの内容："
+openssl pkey -in shoestring/addresses/ca.key.pem -noout -text
+echo
+echo "config-harvesting.propertiesの内容："
+cat shoestring/addresses/config-harvesting.properties
+echo
+echo "votingの内容："
+ls shoestring/addresses/voting
+echo
+echo "node.key.pemの内容："
+openssl pkey -in shoestring/addresses/node.key.pem -noout -text
+echo
+echo "shoestring/addresses/backup.txtの内容："
+cat shoestring/addresses/backup.txt
+
+echo
+echo
+echo "shoestring/shoestring.iniの[imports]項目に下記の様に記述すると、バックアップが反映します。"
+
+# ── backup.txt から必要なパスを抽出して表示 ──
+
+echo
+echo "[imports]"
+echo
+
+harvester=""
+voter=""
+nodeKey=""
+
+if [ -f "$BACKUP_TXT" ]; then
+    while IFS= read -r line; do
+        case "$line" in
+            *config-harvesting.properties)
+                harvester="$line"
+                ;;
+            *voting)
+                voter="$line"
+                ;;
+            *node.key.pem)
+                nodeKey="$line"
+                ;;
+        esac
+    done < "$BACKUP_TXT"
+fi
+
+# 表示（空の場合も空文字列で出力）
+printf 'harvester = %s\n' "$harvester"
+printf 'voter = %s\n' "$voter"
+printf 'nodeKey = %s\n' "$nodeKey"
