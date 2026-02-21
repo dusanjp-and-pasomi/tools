@@ -9,7 +9,7 @@ vrf
 一旦作成した nodeの nodeAccountsを保存する為に **backup**を作成しました。  
     
   ----
-## 使い方  
+## 使い方
 $HOME上で  
 `wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/backup_node_addresses_and_voting/backup`  
 nodeの作業ディレクトリ（docker-compose.yamlがある場所 ※nodeディレクトリがある場所でも可。）に入って  
