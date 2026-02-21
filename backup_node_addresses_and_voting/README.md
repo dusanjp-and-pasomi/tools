@@ -27,9 +27,9 @@ shoestring/addressesに保存された内容と、
 ## backupを動作させた時の表示はこうなります。  
 ```
 ファイルコピー成功: ca.key.pem → shoestring/addresses/ca.key.pem
-ファイルコピー成功: node/userconfig/resources/config-harvesting.properties → shoestring/addresses/config-harvesting.properties
-注意: 存在しない → node/keys/voting
-ファイルコピー成功: node/keys/cert/node.key.pem → shoestring/addresses/node.key.pem
+ファイルコピー成功: userconfig/resources/config-harvesting.properties → shoestring/addresses/config-harvesting.properties
+注意: 存在しない → keys/voting
+ファイルコピー成功: keys/cert/node.key.pem → shoestring/addresses/node.key.pem
 backup.txt にコピー成功したファイルのパスを記録しました
 処理完了: shoestring/addresses
 
@@ -86,4 +86,5 @@ shoestring/shoestring.iniの[imports]項目に下記の様に記述すると、�
 harvester = /home/dusanjp6/tb/shoestring/addresses/config-harvesting.properties
 voter = 
 nodeKey = /home/dusanjp6/tb/shoestring/addresses/node.key.pem
+
 ```
