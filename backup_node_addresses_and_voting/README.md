@@ -24,7 +24,7 @@ shoestring/addressesに保存された内容と、
 このバックアップ内容を反映する為の、shoestring/shoestring.iniの[imports]項目への記述方法が表示されます。  
 
 ----
-##backupを動作させた時の表示はこうなります。  
+## backupを動作させた時の表示はこうなります。  
 ```
 ファイルコピー成功: ca.key.pem → shoestring/addresses/ca.key.pem
 ファイルコピー成功: node/userconfig/resources/config-harvesting.properties → shoestring/addresses/config-harvesting.properties
