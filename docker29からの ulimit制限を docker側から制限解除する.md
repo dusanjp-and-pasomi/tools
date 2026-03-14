@@ -11,9 +11,9 @@ restが動作しなくなってしまい、
 chain/infoは返って来ますが、blockが進まなくなってしまいます。  
   
 symbol-shoestring0.2.3では、これに対する対策を、  
-docker-compose.yamlに制限解除の文を挿入する事で解決していますが、  
+docker-compose.yamlにコンテナ毎に制限解除の文を挿入する事で解決していますが、  
   
-これは docker29での ulimitの制限解除を、dockerの側から制限解除する方法です。  
+これは docker29での ulimitの制限解除を、dockerの側から一気に制限解除する方法です。  
 これだと、symbol-bootstrapで作成した nodeにも適用可能と思われます。  
 
 ----
