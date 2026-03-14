@@ -37,3 +37,8 @@ dockerを再起動する。
 `sudo systemctl restart docker`  
 または`sudo service docker restart`  
   
+docker29が動作するサーバ上で、  
+symbol-shoestring0.2.2(docker29に対応していない ver.)で作成された nodeが　　
+通常通りに動作している事が確認出来ています。  
+おそらく symbol-bootstrapで作成された nodeにも適用出来ると思われます。  
+  
