@@ -1,5 +1,5 @@
 docker29から ulimitの上限制限がかかるようになり、  
-docker29にアップデートした symbolNodeは、  
+docker29にアップデートしたサーバ上での symbolNodeは、  
   
 symbol-shoestring0.2.3から対応していますが、  
 symbol-shoesring0.2.3より前の ver.  
