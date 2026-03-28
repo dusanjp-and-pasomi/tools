@@ -360,6 +360,13 @@ python3 -m shoestring setup --ca-key-path ca.key.pem --config shoestring/shoestr
   
 * 1.開始  
 docker-compose up -d  
+※`failed to create network catapult-node-network: Error response from daemon: Pool overlaps with other one on this address space`  
+のｴﾗｰで nodeが起動しない場合  
+  
+`docker system prune`  
+の後に  
+`docker-compose up -d`  
+で起動出来ます。  
   
 * 2.停止  
 docker-compose down  
