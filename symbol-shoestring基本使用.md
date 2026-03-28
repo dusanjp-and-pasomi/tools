@@ -145,7 +145,7 @@ source ~/env/bin/activate
   
 * symbol-shoestringをインストールする。  
 pip install symbol-shoestring  
-※バージョン指定する場合は、例：0.1.3　pip install symbol-shoestring==0.1.3  
+※バージョン指定する場合は、例：0.2.3　pip install symbol-shoestring==0.2.3  
   
 * symbol-shoestringがインストールされたかを確認する。  
 python3 -m shoestring  
