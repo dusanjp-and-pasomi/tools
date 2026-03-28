@@ -187,6 +187,11 @@ openssl genpkey -algorithm ed25519 -out ca
 openssl pkey -in ca -out ca.key.pem -aes256  
 rm -f ca  
   
+作成した ca.key.pemの確認  
+openssl pkey -in ca.key.pem -noout -text  
+※パスワードを設定している場合はパスワードを聞かれます。  
+priv:以下に秘密鍵が表示されるので作成した ca.key.pemの秘密鍵が 作成したい mainAccountと同じか確認して下さい。  
+  
 ----
 * 2.shoestring.iniを作成する。  
 node設定ファイルを収納する shoestringディレクトリを作成する。  
