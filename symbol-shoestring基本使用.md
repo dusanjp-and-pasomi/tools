@@ -182,7 +182,7 @@ python3 -m shoestring pemtool --output ca.key.pem --ask-pass
 新規で作成したい時は  
 openssl genpkey -algorithm ed25519 -out ca.key.pem  
   
-新規で暗号化して作成したい時は  
+新規でパスワード付きで作成したい時は  
 openssl genpkey -algorithm ed25519 -out ca  
 openssl pkey -in ca -out ca.key.pem -aes256  
 rm -f ca  
