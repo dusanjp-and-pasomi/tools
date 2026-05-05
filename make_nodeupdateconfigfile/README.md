@@ -9,7 +9,7 @@ upgrade命令を実行する前に、shoestring/shoestring.iniの [images]セク
 この部分を手動で行う事は可能ですが、この作業をシェルスクリプトにしたのが、この **vun**です。  
   
 ## 使用方法
-※この作業以前に、symbol-shoestringはアップデートされている前提とする。 
+※この作業以前に、symbol-shoestringはアップデートされている前提とする。   
 参考：symbol-shoestringのアップデート方法  
 ```
 pip uninstall symbol-shoestring
