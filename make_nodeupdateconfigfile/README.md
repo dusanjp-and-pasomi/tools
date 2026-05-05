@@ -18,7 +18,7 @@ pip install symbol-shoestring
   
 **configFile `shoestring/shoestring.ini`の更新**  
 ホームディレクトリ上で、  
-`https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/make_nodeupdateconfigfile/vun`  
+`wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/make_nodeupdateconfigfile/vun`  
   
 nodeの作業ディレクトリに入って、  
 `sh ~/vun`  
