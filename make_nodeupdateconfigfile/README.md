@@ -33,7 +33,7 @@ vunを実行した後に、upgrade命令を実行します。
   
 ## vunの実行の様子  
 ```
-(env) (base) myhome@mysever:~/myshoestringNode$ sh ~/vun
+(env) myhome@mysever:~/myshoestringNode$ sh ~/vun
 shoestring/shoestring.iniを nodeのアップデート用に編集します。
 このスクリプトを実行後に upgrade命令を実行すると、nodeが最新にアップデートします。
 
