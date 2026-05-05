@@ -1,4 +1,4 @@
-# nodeUpdate用configFileの作成
+# symbol-shoestringでの nodeUpdate用configFileの作成
 ## vun(versionUpconfigFile_forNode)  
 symbol-bootstrapでは、  
 symbol-bootstrapをアップデートした後に start/config --upgradeで nodeがアップデートします。  
