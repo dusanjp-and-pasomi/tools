@@ -22,6 +22,7 @@ pip install symbol-shoestring
   
 nodeの作業ディレクトリに入って、  
 `sh ~/vun`  
+  
 これで shoestring/shoestring.iniの [images]セクションが最新のコンテナイメージを使用する様に変更されます。  
   
 **nodeのアップデートを実行**  
