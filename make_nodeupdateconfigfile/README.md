@@ -16,8 +16,8 @@ nodeの作業ディレクトリに入って、
 `sh ~/vun`  
 これで shoestring/shoestring.iniの [images]セクションが最新のコンテナイメージを使用する様に変更されます。  
   
-**nodeのアップデートを実行**
-この作業の後に、upgrade命令を実行します。  
+**nodeのアップデートを実行**  
+vunを実行した後に、upgrade命令を実行します。  
 - mainnet  
 `python3 -m shoestring upgrade --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd)`
   
