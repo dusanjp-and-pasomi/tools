@@ -1,0 +1,63 @@
+#!/bin/bash
+
+echo "shoestring/shoestring.iniを nodeのアップデート用に編集します。"
+echo "このスクリプトを実行後に upgrade命令を実行すると、nodeが最新にアップデートします。"
+echo
+
+# 1. 参照用のファイルを生成
+echo "参照用ファイル u_shoestring.ini を生成中..."
+python3 -m shoestring init u_shoestring.ini
+
+REF_FILE="u_shoestring.ini"
+TARGET_FILE="shoestring/shoestring.ini"
+
+# ファイル確認
+if [ ! -f "$REF_FILE" ] || [ ! -f "$TARGET_FILE" ]; then
+    echo "エラー: ファイルが見つかりません。"
+    exit 1
+fi
+
+# 2. u_shoestring.ini から [images] セクションの内容を「ブロック」として抽出
+# [images] から 次の [ まで（またはファイル末尾まで）を取り出し、一時ファイルに保存
+sed -n '/^\[images\]/,/^\s*\[/p' "$REF_FILE" | sed '$d' > images_block.tmp
+
+# 3. 抽出したブロックでターゲットファイルを書き換え
+#変更前の [images]の内容を表示する
+echo "--- 更新前の [images] セクションの内容 ---"
+# [images] 行から、次に [ で始まる行の直前までを表示
+sed -n '/^\[images\]/,/^\s*\[/ { /^\[/ { /\[images\]/ p; d; }; p; }' "$TARGET_FILE"
+
+# TARGET_FILE の [images]〜次の[ までを削除し、そこに一時ファイルを挿入する
+awk '
+    BEGIN { p=1 }
+    /^\[images\]/ {
+        # images_block.tmp の内容をここに流し込む
+        while ((getline line < "images_block.tmp") > 0) {
+            print line
+        }
+        close("images_block.tmp")
+        p=0 # 以降、次のセクションまで元のファイルは出力しない
+        next
+    }
+    /^\[/ && p==0 { p=1 } # 次のセクションが来たら出力再開
+    p { print }
+' "$TARGET_FILE" > "${TARGET_FILE}.new"
+
+# 4. 結果を反映し、一時ファイルを削除
+mv "${TARGET_FILE}.new" "$TARGET_FILE"
+rm images_block.tmp
+
+echo "完了: $TARGET_FILE の [images] セクションを u_shoestring.ini の内容で書き換えました。"
+
+# 確認表示
+echo "--- 更新後の [images] セクションの内容 ---"
+sed -n '/^\[images\]/,/^\s*\[/p' "$TARGET_FILE" | sed '$d'
+
+#u_shoestring.iniを消去
+echo "u_shoestring.ini を削除中..."
+echo
+rm -f u_shoestring.ini
+
+echo "shoestring/shoestring.iniのアップデートは完了しました。"
+echo "upgrade命令を実行すると、nodeが最新にアップデートします。"
+echo
