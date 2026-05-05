@@ -20,5 +20,7 @@ nodeの作業ディレクトリに入って、
   
 - testnet  
 `python3 -m shoestring upgrade --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd) --package sai`  
+  
 ※`--rest_overrides`は任意で命令文中に挿入。  
+  
 又は、wizardで upgradeを実行すると、nodeの verがアップデートされます。
