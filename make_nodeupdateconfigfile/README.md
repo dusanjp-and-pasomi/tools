@@ -29,3 +29,31 @@ vunを実行した後に、upgrade命令を実行します。
 ※`--rest_overrides`は任意で命令文中に挿入。  
   
 又は、vun実行後に、wizardで upgradeを実行すると、nodeの verがアップデートされます。
+  
+  
+## vunの実行の様子  
+```
+(env) (base) myhome@mysever:~/myshoestringNode$ sh ~/vun
+shoestring/shoestring.iniを nodeのアップデート用に編集します。
+このスクリプトを実行後に upgrade命令を実行すると、nodeが最新にアップデートします。
+
+参照用ファイル u_shoestring.ini を生成中...
+      i     | copying FILE /tmp/tmp73nhlny5/shoestring.ini into u_shoestring.ini
+--- 更新前の [images] セクションの内容 ---
+[images]
+
+client = symbolplatform/symbol-se
+
+完了: shoestring/shoestring.ini の [images] セクションを u_shoestring.ini の内容で書き換えました。
+--- 更新後の [images] セクションの内容 ---
+[images]
+
+client = symbolplatform/symbol-server:gcc-1.0.3.9
+rest = symbolplatform/symbol-rest:2.5.1
+mongo = mongo:7.0.23
+
+u_shoestring.ini を削除中...
+
+shoestring/shoestring.iniのアップデートは完了しました。
+upgrade命令を実行すると、nodeが最新にアップデートします。
+```
