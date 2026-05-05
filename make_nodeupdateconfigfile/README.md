@@ -6,7 +6,7 @@ symbol-bootstrapをアップデートした後に start/config --upgradeで node
 symbol-shoestringを updateした後に、upgrade命令を実行しただけでは、nodeはアップデートしません。**  
 upgrade命令を実行する前に、shoestring/shoestring.iniの [images]セクションの変更が必要になります。  
 このセクションは、使用するコンテナイメージを指定する部分です。  
-この部分を手動で行う事は可能ですが、この作業をシェルスクリプトにしたのが、この vunです。  
+この部分を手動で行う事は可能ですが、この作業をシェルスクリプトにしたのが、この **vun**です。  
   
 ## 使用方法
 **configFile `shoestring/shoestring.ini`の更新**  
