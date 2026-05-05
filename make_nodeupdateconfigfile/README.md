@@ -9,11 +9,14 @@ upgrade命令を実行する前に、shoestring/shoestring.iniの [images]セク
 この部分を手動で行う事は可能ですが、この作業をシェルスクリプトにしたのが、この vunです。  
   
 ## 使用方法
+**configFile `shoestring/shoestring.ini`の更新**
 ホームディレクトリ上で、  
 `https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/make_nodeupdateconfigfile/vun`  
 nodeの作業ディレクトリに入って、  
 `sh ~/vun`  
 これで shoestring/shoestring.iniの [images]セクションが最新のコンテナイメージを使用する様に変更されます。  
+  
+**nodeのアップデートを実行**
 この作業の後に、upgrade命令を実行します。  
 - mainnet  
 `python3 -m shoestring upgrade --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd)`
@@ -23,4 +26,4 @@ nodeの作業ディレクトリに入って、
   
 ※`--rest_overrides`は任意で命令文中に挿入。  
   
-又は、wizardで upgradeを実行すると、nodeの verがアップデートされます。
+又は、vun実行後に、wizardで upgradeを実行すると、nodeの verがアップデートされます。
