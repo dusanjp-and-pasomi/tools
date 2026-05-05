@@ -9,6 +9,8 @@ upgrade命令を実行する前に、shoestring/shoestring.iniの [images]セク
 この部分を手動で行う事は可能ですが、この作業をシェルスクリプトにしたのが、この **vun**です。  
   
 ## 使用方法
+この作業以前に、symbol-shoestringはアップデートされている前提とする。  
+  
 **configFile `shoestring/shoestring.ini`の更新**  
 ホームディレクトリ上で、  
 `https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/make_nodeupdateconfigfile/vun`  
