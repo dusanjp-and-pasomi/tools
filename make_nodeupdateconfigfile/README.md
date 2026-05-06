@@ -1,12 +1,14 @@
-# symbol-shoestringでの nodeUpdate用configFileの作成
+# symbol-shoestring（コマンド使用）での nodeUpdate用configFileの作成
 ## vun(versionUpconfigFile_forNode)  
 symbol-bootstrapでは、  
 symbol-bootstrapをアップデートした後に start/config --upgradeで nodeがアップデートします。  
-**ですが、symbol-shoestringでは、  
+**ですが、symbol-shoestringのコマンド使用方法では、  
 symbol-shoestringを updateした後に、upgrade命令を実行しただけでは、nodeはアップデートしません。**  
 upgrade命令を実行する前に、shoestring/shoestring.iniの [images]セクションの変更が必要になります。  
 このセクションは、使用するコンテナイメージを指定する部分です。  
-この部分を手動で行う事は可能ですが、この作業をシェルスクリプトにしたのが、この **vun**です。  
+この部分を手動で行う事は可能ですが、この作業をシェルスクリプトにしたのが、この **vun**です。
+  
+**shoestring.wizardでは upgradeを選択、実行するだけで、nodeのアップデートが完了します。**  
   
 ## 使用方法
 ※この作業以前に、symbol-shoestringはアップデートされている前提とする。   
@@ -34,8 +36,6 @@ vunを実行した後に、upgrade命令を実行します。
 `python3 -m shoestring upgrade --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd) --package sai`  
   
 ※`--rest_overrides`は任意で命令文中に挿入。  
-  
-又は、vun実行後に、wizardで upgradeを実行すると、nodeの verがアップデートされます。
   
   
 ## vunの実行の様子  
