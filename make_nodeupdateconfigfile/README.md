@@ -8,7 +8,7 @@ upgrade命令を実行する前に、shoestring/shoestring.iniの [images]セク
 このセクションは、使用するコンテナイメージを指定する部分です。  
 この部分を手動で行う事は可能ですが、この作業をシェルスクリプトにしたのが、この **vun**です。
   
-**shoestring.wizardでは upgradeを選択、実行するだけで、nodeのアップデートが完了します。**  
+**※shoestring.wizardでは upgradeを選択、実行するだけで、nodeのアップデートが完了します。**  
   
 ## 使用方法
 ※この作業以前に、symbol-shoestringはアップデートされている前提とする。   
