@@ -2,7 +2,7 @@ symbol-bootstrapのdocker29対応はされてないけど、
 docker側の変更で bootstrapNodeの動作は保障出来る。  
 だが敢えてbootstrap側で対応させてみた。  
   
-元の docker-compose.ymlを作成する部分はここ、 
+元の docker-compose.ymlを作成する部分はここ、  
 https://github.com/symbol/symbol-bootstrap/blob/dev/src/service/ComposeService.ts  
 このファイルに、各コンテナの記述に ulimit制限の解除する部分を入れる様に修正してみた。  
   
