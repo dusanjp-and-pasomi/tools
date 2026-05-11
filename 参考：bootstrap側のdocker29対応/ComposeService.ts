@@ -216,7 +216,7 @@ export class ComposeService {
                             stopGracePeriod: n.nodeStopGracePeriod || presetData.nodeStopGracePeriod,
                         },
                         {
-                            user: serverDebugMode === debugFlag ? undefined : user,
+                            user: serverDebugMode === debugFlag ? undefined : user, // if debug on, run as root
                             container_name: n.name,
                             image: presetData.symbolServerImage,
                             command: serverCommand,
@@ -243,7 +243,7 @@ export class ComposeService {
                                     stopGracePeriod: n.brokerStopGracePeriod || presetData.brokerStopGracePeriod,
                                 },
                                 {
-                                    user: brokerDebugMode === debugFlag ? undefined : user,
+                                    user: brokerDebugMode === debugFlag ? undefined : user, // if debug on, run as root
                                     container_name: n.brokerName,
                                     image: nodeService.image,
                                     working_dir: nodeWorkingDirectory,
@@ -260,8 +260,7 @@ export class ComposeService {
                     }
                 }),
         );
-
-        const restInternalPort = 3000;
+        const restInternalPort = 3000; // Move to shared?
         await Promise.all(
             (presetData.gateways || [])
                 .filter((d) => !d.excludeDockerService)
