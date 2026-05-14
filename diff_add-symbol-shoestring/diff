@@ -1,0 +1,198 @@
+commands/address.py
+
+announce-transaction.py
+35c35
+< 	parser.add_argument('--config', help=_('argument-help-config'), required=True)
+---
+> 	parser.add_argument('--config', help=_('argument-help-config'), default='shoestring/shoestring.ini')
+
+
+commands/health.py
+74,75c74,75
+< 	parser.add_argument('--config', help=_('argument-help-config'), required=True)
+< 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.home()), default=str(Path.home()))
+---
+> 	parser.add_argument('--config', help=_('argument-help-config'), default='shoestring/shoestring.ini')
+> 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.home()), default='node')
+
+
+commands/import_bootstrap.py
+49c49
+< 	parser.add_argument('--config', help=_('argument-help-config'), required=True)
+---
+> 	parser.add_argument('--config', help=_('argument-help-config'), default='shoestring/shoestring.ini')
+51c51
+< 	parser.add_argument('--include-node-key', help=_('argument-help-import-bootstrap-include-node-key'), action='store_true')
+---
+> 	parser.add_argument('--include-node-key', help=_('argument-help-import-bootstrap-include-node-key'), action='store_const', const=True, default=True)
+
+
+commands/init-all py
+
+
+commands/min_cosignatures_count.py
+34,35c34,35
+< 	parser.add_argument('--config', help=_('argument-help-config'), required=True)
+< 	parser.add_argument('--ca-key-path', help=_('argument-help-ca-key-path'), required=True)
+---
+> 	parser.add_argument('--config', help=_('argument-help-config'), default='shoestring/shoestring.ini')
+> 	parser.add_argument('--ca-key-path', help=_('argument-help-ca-key-path'), default='ca.key.pem')
+
+
+commands/pemtool.py
+47c47
+< 	parser.add_argument('--output', help=_('argument-help-pemtool-output'), required=True)
+---
+> 	parser.add_argument('--output', help=_('argument-help-pemtool-output'), default='ca.key.pem')
+
+
+commands/renew_certificates.py
+38,40c38,40
+< 	parser.add_argument('--config', help=_('argument-help-config'), required=True)
+< 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.home()), default=str(Path.home()))
+< 	parser.add_argument('--ca-key-path', help=_('argument-help-ca-key-path'), required=True)
+---
+> 	parser.add_argument('--config', help=_('argument-help-config'), default='shoestring/shoestring.ini')
+> 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.cwd() / 'node'), default=str(Path.cwd() / 'node'))
+> 	parser.add_argument('--ca-key-path', help=_('argument-help-ca-key-path'), default='ca.key.pem')
+42c42
+< 	parser.add_argument('--retain-node-key', help=_('argument-help-renew-certificates-retain-node-key'), action='store_true')
+---
+> 	parser.add_argument('--retain-node-key', help=_('argument-help-renew-certificates-retain-node-key'), action='store_const', const=True, default=True)
+
+
+commands/renew_voting_keys.py
+112,113c112,113
+< 	parser.add_argument('--config', help=_('argument-help-config'), required=True)
+< 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.home()), default=str(Path.home()))
+---
+> 	parser.add_argument('--config', help=_('argument-help-config'), default='shoestring/shoestring.ini')
+> 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.cwd() / 'node'), default='node')
+
+
+commands/reset_data.py
+86,87c86,87
+< 	parser.add_argument('--config', help=_('argument-help-config'), required=True)
+< 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.home()), default=str(Path.home()))
+---
+> 	parser.add_argument('--config', help=_('argument-help-config'), default='shoestring/shoestring.ini')
+> 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.home()), default='node')
+
+
+commands/setup.py
+21d20
+< 
+91a91
+> 
+97a98
+> 			Path(args.directory).mkdir(parents=True, exist_ok=True)
+147c148
+< 	parser.add_argument('--config', help=_('argument-help-config'), required=True)
+---
+> 	parser.add_argument('--config', help=_('argument-help-config').format(default_path='shoestring.shoestring.ini'), default='shoestring/shoestring.ini')
+149,151c150,155
+< 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.home()), default=str(Path.home()))
+< 	parser.add_argument('--overrides', help=_('argument-help-setup-overrides'))
+< 	parser.add_argument('--rest-overrides', help=_('argument-help-setup-rest-overrides'))
+---
+> 	parser.add_argument('--directory', help=_('argument-help-directory').format(default_path=Path.cwd() / 'node'), default='node')
+> 	parser.add_argument('--overrides', help=_('argument-help-setup-overrides'), default='shoestring/overrides.ini')
+> 	if Path('shoestring/rest_overrides.json').exists():
+> 		parser.add_argument('--rest-overrides', help=_('argument-help-setup-rest-overrides'), default='shoestring/rest_overrides.json')
+> 	else:
+> 		parser.add_argument('--rest-overrides', help=_('argument-help-setup-rest-overrides'))
+155c159
+< 		parser.add_argument('--ca-key-path', help=_('argument-help-ca-key-path'), required=True)
+---
+> 		parser.add_argument('--ca-key-path', help=_('argument-help-ca-key-path').format(default_path='ca.key.pem'), default='ca.key.pem')
+157a162
+> 
+
+
+commands/signer.py
+92,93c92,93
+< 	parser.add_argument('--config', help=_('argument-help-config'), required=True)
+< 	parser.add_argument('--ca-key-path', help=_('argument-help-ca-key-path'), required=True)
+---
+> 	parser.add_argument('--config', help=_('argument-help-config'), default='shoestring/shoestring.ini')
+> 	parser.add_argument('--ca-key-path', help=_('argument-help-ca-key-path'), default='ca.key.pem')
+
+
+commands/upgrade.py
+34a35,41
+> 	voting_dir = Path(args.directory) / "keys" / "voting"
+> 	voting_dir.mkdir(exist_ok=True)
+> 	https_proxy_dir = Path(args.directory) / "https-proxy"
+> 	https_proxy_dir.mkdir(exist_ok=True)
+> 	nginx_conf_file = https_proxy_dir / "nginx.conf.erb"
+> 	nginx_conf_file.touch()
+> 
+
+
+__main__.py
+33a34,35
+> 	register_subcommand(subparsers, 'init-all', _('main-init-all-help'))
+> 	register_subcommand(subparsers, 'address', _('main-address-help'))
+
+
+wizard/ShoestringOperation.py
+47c47
+< 		'--directory', str(destination_directory)
+---
+> 		'--directory', str(Path(destination_directory) / 'node')
+58a59,63
+> 		if (Path(shoestring_directory) / 'rest_overrides.json').exists():
+> 			shoestring_args.extend([
+> 				'--rest-overrides', str(Path(shoestring_directory) / 'rest_overrides.json'),
+> 			])
+> 
+62,63c67,68
+< 		if has_custom_rest_overrides:
+< 			shoestring_args.extend(['--rest-overrides', str(Path(shoestring_directory) / 'rest_overrides.json')])
+---
+> 	if ShoestringOperation.RENEW_CERTIFICATES == operation:
+> 		shoestring_args.extend(['--retain-node-key'])
+64a70
+> 	print('wizardで発行される命令：', shoestring_args)
+
+
+wizard/setup_file_generator.py
+4a5
+> import json
+35a37,44
+> 	add = '{"_info":"This is nodeMetaData"}'
+> 	print(add)
+> 	print(node_settings.metadata_info)
+> 
+> 	add_dict = json.loads(add)
+> 	metadata_info_dict = json.loads(node_settings.metadata_info)
+> 	combined_dict = {**add_dict, **metadata_info_dict}
+> 
+37c46
+< 		outfile.write(f'{{"nodeMetadata":{node_settings.metadata_info}}}')
+---
+> 		outfile.write(json.dumps({"nodeMetadata": combined_dict}))
+
+
+
+wizard/screens/obligatory.py
+7d6
+< from prompt_toolkit.utils import get_cwidth
+9c8
+< from prompt_toolkit.widgets import Box, Label
+---
+> from prompt_toolkit.widgets import Box, Button, Label
+13d11
+< from shoestring.wizard.MultibyteButton import MultibyteButton as Button
+110c108
+< 		str(Path.home().absolute() / 'symbol'))
+---
+> 		str(Path.cwd().absolute()))
+141,142c139,140
+< 	button_import = Button(_('wizard-obligatory-import-button'), width=get_cwidth(_('wizard-obligatory-import-button')) + 4)
+< 	button_generate = Button(_('wizard-obligatory-generate-button'), width=get_cwidth(_('wizard-obligatory-generate-button')) + 4)
+---
+> 	button_import = Button(_('wizard-obligatory-import-button'))
+> 	button_generate = Button(_('wizard-obligatory-generate-button'))
+
+
