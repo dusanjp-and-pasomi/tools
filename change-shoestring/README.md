@@ -24,6 +24,11 @@ $HOMEで、
 後は、質問に答えて行けば、shoestringが改変されます。  
 どう改変されるかは、使ってみてのおたのしみw  
   
+※または、  
+`wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/change-shoestring/change6`  
+`sh ~/change6`  
+でも行けます  
+
 ----
 add-symbol-shoestringを選ぶと、  
 **nodeはデフォルトで作業ディレクトリには作成されずに、nodeディレクトリを作成し、**  
