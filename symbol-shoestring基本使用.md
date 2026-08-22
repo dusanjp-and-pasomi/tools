@@ -353,7 +353,10 @@ voter = 作業ディレクトリの絶対パス/shoestring/bootstrap-import/voti
 nodeKey = 作業ディレクトリの絶対パス/shoestring/bootstrap-import/node.key.pem  
 ```
 として記述される。
-
+  
+**nodeAccountsの各秘密鍵から直接指定する場合**
+* 以下の記事を参照して下さい。  
+https://github.com/dusanjp-and-pasomi/tools/blob/main/shoestring%E3%81%A7%E7%A7%98%E5%AF%86%E9%8D%B5%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6nodeAccount%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.md
 ----
 * nodeをセットアップする。  
 python3 -m shoestring setup --ca-key-path ca.key.pem --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd)  
