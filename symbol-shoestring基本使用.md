@@ -343,6 +343,7 @@ shoestring/bootstrap-importディレクトリが作成され、この中に
 --bootstrapで指定した targetの  
 nodes/node/server-config/resources/config-harvesting.properties（remoteAccoountと vrfAccount）  
 nodes/node/cert/node.key.pem（transportAccount）  
+nodes/node/votingkeys（votingKeys）※votingNodeの場合はこれも importされる。  
 がコピーされ、このパスが shoestring/shoestring.iniに  
 ```
 [imports]  
