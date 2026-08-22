@@ -5,6 +5,16 @@
   
 https://x.com/dusanjp/status/2062487489957519449?s=20
 
+  
+ca.key.pem(main)  
+node.key.pem(transport)  
+この2つは pemtoolで秘密鍵とファイル名で作る。  
+  
+```
+python3 -m shoestring pemtool --output ca.key.pem --ask-pass
+python3 -m shoestring pemtool --output node.key.pem
+```
+  
 remoteと vrfは  
 例えば  
 remotevrf  
