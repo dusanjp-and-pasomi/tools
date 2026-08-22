@@ -342,7 +342,7 @@ python3 -m shoestring import-bootstrap --config shoestring/shoestring.ini --boot
 shoestring/bootstrap-importディレクトリが作成され、この中に
 --bootstrapで指定した targetの  
 nodes/node/server-config/resources/config-harvesting.properties（remoteAccoountと vrfAccount）  
-nodes/node/cert/node.key.pem（remoteAccount）  
+nodes/node/cert/node.key.pem（transportAccount）  
 がコピーされ、このパスが shoestring/shoestring.iniに  
 ```
 [imports]  
