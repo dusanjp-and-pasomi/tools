@@ -10,15 +10,21 @@ remoteと vrfは
 remotevrf  
 の名のファイルを作る。  
 中身は  
+```
 [harvesting]  
   
 harvesterSigningPrivateKey = remoteの秘密鍵  
 harvesterVrfPrivateKey = vrfの秘密鍵  
+```
 として保存。  
   
-shoestring.iniの [imports]項目を編集。  
+shoestring.iniの [imports]項目を編集。
+```
+[imports]
+
 harvester = remotevrfの場所の絶対パス  
-nodeKey = node.key.pemの場所の絶対パス  
+nodeKey = node.key.pemの場所の絶対パス
+```
   
 として保存、  
 setup命令をかけると、  
