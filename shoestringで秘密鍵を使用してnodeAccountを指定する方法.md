@@ -4,3 +4,27 @@
 **X** に書いたのでそのリンクを貼ります。  
   
 https://x.com/dusanjp/status/2062487489957519449?s=20
+
+remoteと vrfは  
+例えば  
+remotevrf  
+の名のファイルを作る。  
+中身は  
+[harvesting]  
+  
+harvesterSigningPrivateKey = remoteの秘密鍵  
+harvesterVrfPrivateKey = vrfの秘密鍵  
+として保存。  
+  
+shoestring.iniの [imports]項目を編集。  
+harvester = remotevrfの場所の絶対パス  
+nodeKey = node.key.pemの場所の絶対パス  
+  
+として保存、  
+setup命令をかけると、  
+main/transport/remote/vrf  
+それぞれのアカウントが指定されたノードが出来上がる。  
+  
+remoteと vrfの秘密鍵を記入したファイル  
+'remotevrf'、このファイル名は、  
+好きな名前にして良いです。  
