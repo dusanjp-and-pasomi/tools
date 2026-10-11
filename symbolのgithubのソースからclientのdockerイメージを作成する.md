@@ -160,7 +160,7 @@ image: 'symbolplatform/symbol-server-private:1'
 ```
 に変更する。  
   
-#注意点  
+# 注意点  
 docker imagesで、  
 registry.hub.docker.com/symbolplatform/symbol-server-test-base   ubuntu
 があるが、ここが最新であるかを注意する。  
