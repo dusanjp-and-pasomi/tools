@@ -1,6 +1,7 @@
 # dockerイメージの作成方法  
 ubuntu22.04/24.04で成功している。  
-...
+
+```
 mkdir catapult_manual_build
 
 cd catapult_manual_build
