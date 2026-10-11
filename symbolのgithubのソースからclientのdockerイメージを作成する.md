@@ -170,3 +170,9 @@ https://hub.docker.com/r/symbolplatform/symbol-server-build-base/tags
 このイメージの名称が同じな為に、更新があってもダウンロードされない事がある。  
 このイメージが古いままだと、  
 ビルドが通ってイメージが問題無く作成出来た様に見えても、nodeが正常に動作しない。  
+  
+registry.hub.docker.com/symbolplatform/symbol-server-test-base   ubuntu  
+もしこのイメージが古い場合は、手動で削除をすると、  
+上記のビルド命令時に新しいイメージをダウンロードする。  
+削除には子イメージを前もって削除する必要あり。  
+※子イメージとは以前に作ったclientのdockerイメージ。  
