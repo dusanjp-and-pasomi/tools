@@ -32,6 +32,7 @@ REPOSITORY                                                       TAG            
 symbolplatform/symbol-server-private                             1                       d59f4027d617   5 minutes ago   2.04GB
 ```
   
+# 作成したイメージの利用方法  
 nodeのdocker-compose.yaml（bootstrap nodeなら target/docker/docker-compose.yml）で  
 clientとbrokerのイメージ指定を変更する。  
 ```
