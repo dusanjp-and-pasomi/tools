@@ -8,6 +8,10 @@ cd catapult_manual_build
 
 git clone https://github.com/symbol/symbol.git
 
+cd symbol
+
+sudo su
+
 python3 jenkins/catapult/runDockerBuild.py \
     --compiler-configuration jenkins/catapult/configurations/amd64/gcc-latest.yaml \
     --build-configuration jenkins/catapult/configurations/release-private.yaml \
