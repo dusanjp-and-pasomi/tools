@@ -1,4 +1,4 @@
-# dockerイメージの作成方法  
+# symbol clientのdockerイメージの作成方法  
 ubuntu22.04/24.04で成功している。  
 
 ```
