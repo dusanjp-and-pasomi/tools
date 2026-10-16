@@ -54,6 +54,11 @@ lockedFundsPerAggregate = 10000000
 
 秘密鍵を聞かれるので、共同署名者の秘密鍵を入力する。  
   
+作成した c1.key.penの確認は、  
+メインネットの場合 `python3 -m shoestring pemview --input c1.key.pem --network mainnet`  
+テストネットの場合 `python3 -m shoestring pemview --input c1.key.pem --network testnet`  
+addressが違っている時は、`rm -f c1.key.pem`で c1.key.pemを削除してから③の最初からやり直す。  
+  
 **④ renew_voting_keys_transaction.datに共同署名者のアカウント(c1.key.pem)で署名をする。**  
 `python3 -m shoestring signer --config shoestring/shoestring.ini --save renew_voting_keys_transaction.dat --ca-key-path c1.key.pem`
   
@@ -89,6 +94,11 @@ lockedFundsPerAggregate = 10000000
 `python3 -m shoestring pemtool --output c1.key.pem`
 
 秘密鍵を聞かれるので、共同署名者の秘密鍵を入力する。  
+  
+作成した c1.key.penの確認は、  
+メインネットの場合 `python3 -m shoestring pemview --input c1.key.pem --network mainnet`  
+テストネットの場合 `python3 -m shoestring pemview --input c1.key.pem --network testnet`  
+addressが違っている時は、`rm -f c1.key.pem`で c1.key.pemを削除してから③の最初からやり直す。  
   
 **④ renew_voting_keys_transaction.datに共同署名者のアカウント(c1.key.pem)で署名をする。**  
 `python3 -m shoestring signer --config shoestring/shoestring.ini --save renew_voting_keys_transaction.dat --ca-key-path c1.key.pem`
