@@ -22,7 +22,8 @@ userconfig/resources/config-harvesting.propertiesを復元する様にしまし�
   
 # 使い方
 shoestring nodeの作業ディレクトリで、  
-```wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/backup2_upgrade%E3%81%A7%E5%A4%B1%E6%95%97%E3%81%97%E3%81%A6%E3%81%A6%E3%82%82%E3%83%8E%E3%83%BC%E3%83%89%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%A8%E6%8A%95%E7%A5%A8%E9%8D%B5%E3%82%92%E4%BF%9D%E5%AD%98%E3%81%99%E3%82%8B%EF%BC%81/backup2```  
+```
+wget https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/backup2_upgrade%E3%81%A7%E5%A4%B1%E6%95%97%E3%81%97%E3%81%A6%E3%81%A6%E3%82%82%E3%83%8E%E3%83%BC%E3%83%89%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%A8%E6%8A%95%E7%A5%A8%E9%8D%B5%E3%82%92%E4%BF%9D%E5%AD%98%E3%81%99%E3%82%8B%EF%BC%81/backup2```  
 backup2がダウンロードされます。  
   
 `sh backup2` で  
