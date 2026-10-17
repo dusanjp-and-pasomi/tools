@@ -52,8 +52,7 @@ harvesterVrfPrivateKey = 94885607411b1f27bf31270e2509cb04dde0230eeabc6acea55e86d
 ーー以上は復元されたuserconfig/resources/config-harvesting.propertiesの内容ーー
 ```
   
-  
-表示の一番下に shoestring.iniへの反映方法が出ます。  
+* 表示の一番下に shoestring.iniへの反映方法が出ます。  
 ```
 shoestring/shoestring.iniの[imports]項目に下記の様に記述すると、バックアップが反映します。
 
