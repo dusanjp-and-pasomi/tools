@@ -51,3 +51,14 @@ harvesterSigningPrivateKey = 23a91e1f93490db4350e81fe3ce872c66f1e891534f6403429f
 harvesterVrfPrivateKey = 94885607411b1f27bf31270e2509cb04dde0230eeabc6acea55e86ddda2fabe5
 ーー以上は復元されたuserconfig/resources/config-harvesting.propertiesの内容ーー
 ```
+  
+表示の一番下に shoestring.iniへの反映方法が出ます。  
+```
+shoestring/shoestring.iniの[imports]項目に下記の様に記述すると、バックアップが反映します。
+
+[imports]
+
+harvester = /home/dusanjp18/vt/shoestring/addresses/config-harvesting.properties
+voter = /home/dusanjp18/vt/shoestring/addresses/voting
+nodeKey = /home/dusanjp18/vt/shoestring/addresses/node.key.pem
+```
