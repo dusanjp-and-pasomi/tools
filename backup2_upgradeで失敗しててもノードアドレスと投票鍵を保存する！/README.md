@@ -11,5 +11,5 @@ vrf
 一旦作成した nodeの nodeAccountsを保存する為に backupを作成しました。
   
 ## ...とは以前に作った backupのうたい文句ですが、  
-* upgredeで失敗したあとは config-harvesting.propertiesが無くなってて *  
-* remoteと vrfのアドレスが保存されない！ *  
+* upgredeで失敗したあとは config-harvesting.propertiesが無くなってて  
+ remoteと vrfのアドレスが保存されない！  
