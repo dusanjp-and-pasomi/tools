@@ -55,6 +55,10 @@ harvesterVrfPrivateKey = 94885607411b1f27bf31270e2509cb04dde0230eeabc6acea55e86d
 * 表示の一番下に shoestring.iniへの反映方法が出ます。  
 ```
 shoestring/shoestring.iniの[imports]項目に下記の様に記述すると、バックアップが反映します。
+  
+# setup命令で元のノードアドレスと投票鍵を持ってノードが復元します！
+※setpu命令の前にファイルの掃除はしといて下さい！
+
 
 [imports]
 
