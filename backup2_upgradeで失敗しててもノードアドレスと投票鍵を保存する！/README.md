@@ -64,7 +64,7 @@ nodeKey = /home/dusanjp18/vt/shoestring/addresses/node.key.pem
 ```
   
 # setup命令で元のノードアドレスと投票鍵を持ってノードが復元します！
-※setpu命令の前にファイルの掃除はしといて下さい！  
+※setup命令の前にファイルの掃除はしといて下さい！ファイルはもうあるよ！って言われちゃいます。  
 ファイル掃除  
 https://github.com/dusanjp-and-pasomi/tools/tree/main/delete_node_without_configfiles  
 
