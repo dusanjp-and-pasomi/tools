@@ -10,6 +10,8 @@ vrf
 これらの accountは別のものが生成されます。
 一旦作成した nodeの nodeAccountsを保存する為に backupを作成しました。
   
-## ...とは以前に作った backupのうたい文句ですが、  
+## ...とは以前に作った backup
+https://github.com/dusanjp-and-pasomi/tools/raw/refs/heads/main/backup_node_addresses_and_voting
+のうたい文句ですが、  
 * upgredeで失敗したあとは config-harvesting.propertiesが無くなってて  
  remoteと vrfのアドレスが保存されない！  
