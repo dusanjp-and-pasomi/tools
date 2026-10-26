@@ -1,5 +1,5 @@
 # votingkeys.py  
-カレントディレクトリにある votingkeyの内容を見るツール。address.pyからスピンアウトさせました。  
+カレントディレクトリにある votingkey（投票鍵）の内容を見るツール。address.pyからスピンアウトさせました。  
 例えば、バックアップに置いてある votingkeyの場所まで行って、そこでこの votingkeys.pyを実行すると、  
 ```
 votingKey情報:	
