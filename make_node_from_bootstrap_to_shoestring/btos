@@ -137,7 +137,7 @@ userId = 1000
 groupId = 1000
 caPassword =
 apiHttps = false
-lightApi = False
+lightApi = false
 
 caCommonName = CA $friendlyName
 nodeCommonName = $friendlyName $host
