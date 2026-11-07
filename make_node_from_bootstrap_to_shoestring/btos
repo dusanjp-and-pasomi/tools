@@ -184,7 +184,7 @@ features = $features
 userId = 1000
 groupId = 1000
 caPassword =
-apiHttps = true
+apiHttps = false
 lightApi = false
 
 caCommonName = CA $friendlyName
