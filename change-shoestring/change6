@@ -131,9 +131,14 @@ if [ "$y" = "y" ]; then
 	echo
 	echo "本家の最新版 githubを導入しているか？："$symbolGithubDownload
 	if [ "$symbolGithubDownload" = "no" ]; then
-		echo "changes_add-symbol-shoestring_c.patchを使用します"
-		wget https://github.com/dusanjp-and-pasomi/add-symbol-shoestring/raw/refs/heads/main/changes_add-symbol-shoestring_c.patch
-		patch -N -p1 -d $shoestringPath < changes_add-symbol-shoestring_c.patch
+		echo "changes_add-symbol-shoestring.patchを使用します"
+		wget https://github.com/dusanjp-and-pasomi/add-symbol-shoestring/raw/refs/heads/main/changes_add-symbol-shoestring.patch
+
+		#github版では、messages.poが 919行なのに対して、通常インストール版では、920行目に空欄の行があるので、patchが当たらない。
+		#この 920行目を削除して patchが当たるようにする。
+		#shoestring/lang/ja/LC_MESSAGES/messages.poの 920行目が違う。
+		sed -i '920d' $shoestringPath/shoestring/lang/ja/LC_MESSAGES/messages.po
+		patch -N -p1 -d $shoestringPath < changes_add-symbol-shoestring.patch
 	else
 		echo "changes_add-symbol-shoestring.patchを使用します"
 		wget https://github.com/dusanjp-and-pasomi/add-symbol-shoestring/raw/refs/heads/main/changes_add-symbol-shoestring.patch
@@ -142,21 +147,31 @@ if [ "$y" = "y" ]; then
 
 	cd $shoestringPath/shoestring/lang/ja/LC_MESSAGES
 	msgfmt messages.po -o messages.mo
-fi
 
-#ぱそ美（おじょうさま）パッチを使用するか聞いて、y なら、ぱそ美（おじょうさま）パッチを使用する。
-cd ~/add-symbol-shoestring
-echo
-read -p "ぱそ美（おじょうさま）パッチを使用しますか？ y か n を入力して[ENTER]を押して下さい。(y/N) :" y	
-if [ "$y" = "y" ]; then
-	echo "y が入力されました。ぱそ美（おじょうさま）パッチを使用します。"
+
+	#ぱそ美（おじょうさま）パッチを使用するか聞いて、y なら、ぱそ美（おじょうさま）パッチを使用する。
+	cd ~/add-symbol-shoestring
 	echo
-	mkdir pasomi
-	cd pasomi
-	wget https://github.com/dusanjp-and-pasomi/pasomi/raw/refs/heads/main/changes_plus_pasomi.patch
-	patch -N -p1 -d $shoestringPath < changes_plus_pasomi.patch
-	cd $shoestringPath/shoestring/lang/ja/LC_MESSAGES
-	msgfmt messages.po -o messages.mo
+	read -p "ぱそ美（おじょうさま）パッチを使用しますか？ y か n を入力して[ENTER]を押して下さい。(y/N) :" y	
+	if [ "$y" = "y" ]; then
+		echo "y が入力されました。ぱそ美（おじょうさま）パッチを使用します。"
+		echo
+		mkdir pasomi
+		cd pasomi
+		wget https://github.com/dusanjp-and-pasomi/pasomi/raw/refs/heads/main/changes_plus_pasomi.patch
+
+		#changes_plus_pasomi.patchの 507行目が、 #: shoestring/internal/Preparer.py:415だが、
+		#通常インストール版では、 #: shoestring/internal/Preparer.py:420なので、patchが当たらない。
+		#changes_plus_pasomi.patchの 507行目を、 #: shoestring/internal/Preparer.py:420に変更して patchが当たるようにする。
+		#shoestring/lang/ja/LC_MESSAGES/messages.poの 179行目が違う。
+		if [ "$symbolGithubDownload" = "no" ]; then
+			sed -i '507s/.*/ #: shoestring\/internal\/Preparer.py:420/' changes_plus_pasomi.patch
+		fi
+
+		patch -N -p1 -d $shoestringPath < changes_plus_pasomi.patch
+		cd $shoestringPath/shoestring/lang/ja/LC_MESSAGES
+		msgfmt messages.po -o messages.mo
+	fi
 fi
 
 #短縮命令を可能にする、aliasを作成する為に、$HOMEに戻る。
@@ -205,4 +220,3 @@ fi
 
 #symbol-shoestringの命令を表示する。これで、現在の symbol-shoestringはどれかが判る。
 LC_MESSAGES=ja python3 -m shoestring --help
-
