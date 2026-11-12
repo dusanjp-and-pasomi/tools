@@ -1,14 +1,18 @@
-# 【symbol-shoestring 0.2.2への update手順】
+# 【symbol-shoestring 0.2.5への update手順】
   
-## ① symbol-shoestring 0.2.2のインストール  
-`pip install symbol-shoestring`  
+## ① symbol-shoestring 0.2.5のインストール  
+```
+pip uninstall symbol-shoestring  
+pip install symbol-shoestring
+```
+`pip install symbol-shoestring==0.2.5`でもいいです。  
   
 ## ② verの確認  
 `pip list|grep shoestring`  
   
-- これで 0.2.2になっていない時は  
+- これで 0.2.5になっていない時は  
 `pip uninstall symbol-shoestring`  
-`pip install symbol-shoestring==0.2.2`  
+`pip install symbol-shoestring==0.2.5`  
 `pip list|grep shoestring`  
 最初から ↑ の方法の方が確実かな  
   
@@ -17,19 +21,20 @@
 `cd 作業ディレクトリ`  
 `docker-compose down`
   
-## ② shoestring/shoestring.iniの [images]項目の 3行を修正  
+## （※コマンドで upgradeする時のみ必要）② shoestring/shoestring.iniの [images]項目の 3行を修正  
+※ wizardで upgradeをする時は自動で shoestring.iniは書き換わるのでここは飛ばしていいです。  
 `vi shoestring/shoestring.ini`  
   
 - 修正内容  
 ```
-client = symbolplatform/symbol-server:gcc-1.0.3.9
-rest = symbolplatform/symbol-rest:2.5.1
-mongo = mongo:7.0.23
+client = symbolplatform/symbol-server:gcc-1.0.3.10
+rest = symbolplatform/symbol-rest:2.5.2
+mongo = mongo:7.0.45
 ```
   
 変更して保存  
   
-## ③甲 コマンドで upgrade命令を実行  
+## （※コマンドで upgradeをする時のみ必要）③甲 コマンドで upgrade命令を実行  
 - mainnet  
 `python3 -m shoestring upgrade --config shoestring/shoestring.ini --overrides shoestring/overrides.ini --directory $(pwd)`
   
@@ -42,6 +47,7 @@ shoestring.iniや overrides.iniのファイル名やファイルの場所が違�
 適宜に変更して下さい。  
   
 ## ③乙 WIZARDで upgradeを実行  
+※wizardで upgradeをする時は、② ③甲の操作は不要。自動で shoestring.iniの書き換えをしてくれます。  
 **mainnet/testnet共通**  
 `python3 -m shoestring.wizard`  
   
@@ -60,6 +66,6 @@ mainnet/testnetを選択、[Next]
 - httpsの nodeの場合    
 `curl [nodeの url]:3001/node/server|jq`
   
-`"restVersion": "2.5.1",` となっていたら、成功。
+`"restVersion": "2.5.2",` となっていたら、成功。
   
   
