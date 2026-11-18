@@ -77,5 +77,5 @@ mainnet/testnetを選択、[Next]
 `docker ps|grep server`  
 上記コマンドで、  
 `symbolplatform/symbol-server:gcc-1.0.3.11`  
-などと、`1.0.3.11`表示されていれば、成功です  
+などと、`1.0.3.11`の部分が表示されていれば、成功です  
   
