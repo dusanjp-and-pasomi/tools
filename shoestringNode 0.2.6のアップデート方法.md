@@ -1,18 +1,18 @@
-# 【symbol-shoestring 0.2.5への update手順】
+# 【symbol-shoestring 0.2.6への update手順】
   
-## ① symbol-shoestring 0.2.5のインストール  
+## ① symbol-shoestring 0.2.6のインストール  
 ```
 pip uninstall symbol-shoestring  
 pip install symbol-shoestring
 ```
-`pip install symbol-shoestring==0.2.5`でもいいです。  
+`pip install symbol-shoestring==0.2.6`でもいいです。  
   
 ## ② verの確認  
 `pip list|grep shoestring`  
   
-- これで 0.2.5になっていない時は  
+- これで 0.2.6になっていない時は  
 `pip uninstall symbol-shoestring`  
-`pip install symbol-shoestring==0.2.5`  
+`pip install symbol-shoestring==0.2.6`  
 `pip list|grep shoestring`  
 最初から ↑ の方法の方が確実かな  
   
@@ -27,10 +27,12 @@ pip install symbol-shoestring
   
 - 修正内容  
 ```
-client = symbolplatform/symbol-server:gcc-1.0.3.10
+client = symbolplatform/symbol-server:gcc-1.0.3.11
 rest = symbolplatform/symbol-rest:2.5.2
 mongo = mongo:7.0.45
 ```
+※今回の 0.2.5から0.2.6アップデートでは変更点は clientの行の 1.0.3.11のみ。  
+restと mongoの行の変更はありません。  
   
 変更して保存  
   
